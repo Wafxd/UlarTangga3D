@@ -28,26 +28,6 @@ OpenGL & GLUT terinstal
 
 ![Gameplay Screenshot](thumb/ss.png)  <!-- Format dasar -->
 
-🛠️ Struktur Kode
-/3d-snake-ladder-opengl
-│── main.cpp            # Main game loop dan logika
-│── board.cpp           # Render papan 3D
-│── player.cpp          # Logika pemain
-│── dice.cpp            # Animasi dadu
-│── textures/           # File tekstur
-│── README.md           # File ini
-└── Makefile            # Untuk kompilasi mudah
-🤝 Kontribusi
-Kontribusi terbuka! Silakan fork repo ini dan buat pull request dengan:
-
-Perbaikan bug
-
-Fitur baru
-
-Peningkatan performa
-
-Desain UI/UX yang lebih baik
-
 📜 Lisensi
 MIT License - bebas digunakan dan dimodifikasi
 
