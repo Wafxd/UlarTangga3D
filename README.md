@@ -1,6 +1,6 @@
 # 🎲 3D Ular Tangga dengan OpenGL & GLUT (C++)
 
-## Cara Main Di bawah y
+## Penggunaan Di bawah y
 
 ![OpenGL](https://img.shields.io/badge/OpenGL-5586A4?logo=opengl&logoColor=white)
 ![C++](https://img.shields.io/badge/C++-00599C?logo=c%2B%2B&logoColor=white)
@@ -77,3 +77,9 @@ arrow right left for rotate turn to the right or left
 2 => add lighting
 
 3 => add more lighting (maybe)
+
+##
+
+### Gameplay
+
+Press Space on ur kb to roll dice and enjoy the game
