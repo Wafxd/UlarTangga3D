@@ -228,3 +228,13 @@
 	<_mingw.h>
 	<stddef.h>
 
+1746960147 source:c:\github\ulartangga3d\main.cpp
+	<windows.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<iostream>
+	<stdlib.h>
+	<time.h>
+	<cstdio>
+	<cmath>
+

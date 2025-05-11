@@ -8,6 +8,7 @@
 Selamat datang di repositori game 3D Ular Tangga yang dibangun menggunakan OpenGL, GLUT, dan C++! Ini adalah implementasi modern dari permainan klasik dengan grafis 3D yang menarik.
 
 🎮 Fitur Utama
+
 🏗️ Papan permainan 3D dengan efek visual menarik
 
 🐍 Ular dan tangga yang dibuat secara 3D
@@ -22,14 +23,10 @@ Compiler C++ (g++/MinGW/Visual Studio)
 
 OpenGL & GLUT terinstal
 
-Kompilasi & Menjalankan
-bash
-git clone https://github.com/[wafxd]/3d-snake-ladder-opengl.git
-cd 3d-snake-ladder-opengl
-g++ main.cpp -o game -lGL -lGLU -lglut
-./game
+
 🖼️ Screenshot
-Gameplay Screenshot (Screenshot bisa diganti dengan milikmu)
+
+![Gameplay Screenshot](thumb/ss.png)  <!-- Format dasar -->
 
 🛠️ Struktur Kode
 /3d-snake-ladder-opengl
