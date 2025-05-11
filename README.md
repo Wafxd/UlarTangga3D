@@ -1,7 +1,7 @@
 🎲 3D Ular Tangga dengan OpenGL & GLUT (C++)
-OpenGL
-C++
-GLUT
+![OpenGL](https://img.shields.io/badge/OpenGL-5586A4?logo=opengl&logoColor=white)
+![C++](https://img.shields.io/badge/C++-00599C?logo=c%2B%2B&logoColor=white)
+![GLUT](https://img.shields.io/badge/GLUT-5586A4?logo=opengl&logoColor=white)
 
 Selamat datang di repositori game 3D Ular Tangga yang dibangun menggunakan OpenGL, GLUT, dan C++! Ini adalah implementasi modern dari permainan klasik dengan grafis 3D yang menarik.
 
