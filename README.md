@@ -38,9 +38,15 @@ MIT License - bebas digunakan dan dimodifikasi
 
 Dibuat dengan ❤️ menggunakan OpenGL, GLUT, dan C++
 
+#
+
 V => 3D view
+
 2x V => Side View
+
 3x V => Normal View 2D
+
+##
 
 ### In 3D View (V)
 
@@ -56,9 +62,13 @@ O => rotation turn to the right
 
 U => rotation turn to the left
 
+##
+
 ### In Side View (2x V)
 
 arrow right left for rotate turn to the right or left
+
+##
 
 ### In global
 
