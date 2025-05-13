@@ -618,29 +618,18 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
 }
 
 
-void drawObserver(float x, float y) {
-    glPushMatrix();
-    glColor3f(0, 0, 1);
-    glTranslatef(x, y, 0.6f);
-    if (viewMode == 1) {
-        glRotatef(rotationX, 1, 0, 0);
-        glRotatef(rotationY, 0, 1, 0);
-        glRotatef(rotationZ, 0, 0, 1);
-    }
-    glutSolidCone(0.1, 0.2, 50, 50);
-    glPopMatrix();
-}
+
 
 
 void drawPlayer1 (float x , float y){
-    glColor3f(1,0,0);
+    glColor3f(1,1,0);
     glTranslatef(x,y,0.3f);
     glutSolidSphere(0.1,50,50);
     glTranslatef(-x,-y,-0.6f);
 }
 
 void drawPlayer2(float x, float y){
-    glColor3f(0,0,0);
+    glColor3f(0,1,0);
     glTranslatef(x,y,0.6f);
     glutSolidCube(0.2);
     glTranslatef(-x,-y,-0.6f);
@@ -1239,999 +1228,419 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     glEnd();
 
     glPopMatrix();
-}
 
-
-
-void drawKotak(bool warna_transparan) {
-
-    // MENGGAMBAR TANGGA 2
+    // MENGGAMBAR ULAR 3D
     glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    for (float i = 8.8; i < 11.5; i += 0.4) {
-        // anak tangga
-        // depan
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, 1); // Normal untuk semua sisi
-        glVertex3f(6.2, i, 1.0);
-        glVertex3f(6.8, i, 1.0);
-        glVertex3f(6.8, i + 0.1, 1.0);
-        glVertex3f(6.2, i + 0.1, 1.0);
-        glEnd();
-        // belakang
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, -1); // Normal untuk semua sisi
-        glVertex3f(6.2, i, 0.7);
-        glVertex3f(6.8, i, 0.7);
-        glVertex3f(6.8, i + 0.1, 0.7);
-        glVertex3f(6.2, i + 0.1, 0.7);
-        glEnd();
-        // kiri
-        glBegin(GL_POLYGON);
-        glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(6.2, i, 1.0);
-        glVertex3f(6.2, i, 0.7);
-        glVertex3f(6.2, i + 0.1, 0.7);
-        glVertex3f(6.2, i + 0.1, 1.0);
-        glEnd();
-        // kanan
-        glBegin(GL_POLYGON);
-        glNormal3f(1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(6.8, i, 1.0);
-        glVertex3f(6.8, i, 0.7);
-        glVertex3f(6.8, i + 0.1, 0.7);
-        glVertex3f(6.8, i + 0.1, 1.0);
-        glEnd();
-        // atas
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 1, 0); // Normal untuk semua sisi
-        glVertex3f(6.2, i + 0.1, 1.0);
-        glVertex3f(6.8, i + 0.1, 1.0);
-        glVertex3f(6.8, i + 0.1, 0.7);
-        glVertex3f(6.2, i + 0.1, 0.7);
-        glEnd();
-        // bawah
-        glBegin(GL_POLYGON);
-        glNormal3f(0, -1, 0); // Normal untuk semua sisi
-        glVertex3f(6.2, i, 1.0);
-        glVertex3f(6.8, i, 1.0);
-        glVertex3f(6.8, i, 0.7);
-        glVertex3f(6.2, i, 0.7);
-        glEnd();
-    }
+    glColor3f(1.0, 0.0, 0.0); // Warna merah
 
-    // gagang kiri
-    // depan
+    // Parameter 3D
+    float thickness2 = 0.2f; // Ketebalan ular
+    float frontZ2 = 0.5f;    // Posisi depan
+    float backZ2 = frontZ2 - thickness2; // Posisi belakang
+
+    // Bagian pertama ular
+    // Depan
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(6.2, 8.8, 1.0);
-    glVertex3f(6.3, 8.8, 1.0);
-    glVertex3f(6.3, 11.5, 1.0);
-    glVertex3f(6.2, 11.5, 1.0);
-    glEnd();
-    // belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(6.2, 8.8, 0.7);
-    glVertex3f(6.3, 8.8, 0.7);
-    glVertex3f(6.3, 11.5, 0.7);
-    glVertex3f(6.2, 11.5, 0.7);
-    glEnd();
-    // kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(6.2, 8.8, 1.0);
-    glVertex3f(6.2, 8.8, 0.7);
-    glVertex3f(6.2, 11.5, 0.7);
-    glVertex3f(6.2, 11.5, 1.0);
-    glEnd();
-    // kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(6.3, 8.8, 1.0);
-    glVertex3f(6.3, 8.8, 0.7);
-    glVertex3f(6.3, 11.5, 0.7);
-    glVertex3f(6.3, 11.5, 1.0);
-    glEnd();
-    // atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(6.2, 11.5, 1.0);
-    glVertex3f(6.3, 11.5, 1.0);
-    glVertex3f(6.3, 11.5, 0.7);
-    glVertex3f(6.2, 11.5, 0.7);
-    glEnd();
-    // bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(6.2, 8.8, 1.0);
-    glVertex3f(6.3, 8.8, 1.0);
-    glVertex3f(6.3, 8.8, 0.7);
-    glVertex3f(6.2, 8.8, 0.7);
+    glNormal3f(0, 0, 1);
+    glVertex3f(4.63, 4.5, frontZ2);
+    glVertex3f(4.5, 4.5, frontZ2);
+    glVertex3f(3.2, 3.0, frontZ2);
+    glVertex3f(3.3, 3.0, frontZ2);
     glEnd();
 
-    // gagang kanan
-    // depan
+    // Belakang
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(6.8, 8.8, 1.0);
-    glVertex3f(6.9, 8.8, 1.0);
-    glVertex3f(6.9, 11.5, 1.0);
-    glVertex3f(6.8, 11.5, 1.0);
+    glNormal3f(0, 0, -1);
+    glVertex3f(4.63, 4.5, backZ2);
+    glVertex3f(4.5, 4.5, backZ2);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(3.3, 3.0, backZ2);
     glEnd();
-    // belakang
+
+    // Sisi atas
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(6.8, 8.8, 0.7);
-    glVertex3f(6.9, 8.8, 0.7);
-    glVertex3f(6.9, 11.5, 0.7);
-    glVertex3f(6.8, 11.5, 0.7);
+    glNormal3f(0, 1, 0);
+    glVertex3f(4.63, 4.5, frontZ2);
+    glVertex3f(4.5, 4.5, frontZ2);
+    glVertex3f(4.5, 4.5, backZ2);
+    glVertex3f(4.63, 4.5, backZ2);
     glEnd();
-    // kiri
+
+    // Sisi bawah
     glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(6.8, 8.8, 1.0);
-    glVertex3f(6.8, 8.8, 0.7);
-    glVertex3f(6.8, 11.5, 0.7);
-    glVertex3f(6.8, 11.5, 1.0);
+    glNormal3f(0, -1, 0);
+    glVertex3f(3.3, 3.0, frontZ2);
+    glVertex3f(3.2, 3.0, frontZ2);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(3.3, 3.0, backZ2);
     glEnd();
-    // kanan
+
+    // Sisi kiri
     glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(6.9, 8.8, 1.0);
-    glVertex3f(6.9, 8.8, 0.7);
-    glVertex3f(6.9, 11.5, 0.7);
-    glVertex3f(6.9, 11.5, 1.0);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(4.63, 4.5, frontZ2);
+    glVertex3f(4.63, 4.5, backZ2);
+    glVertex3f(3.3, 3.0, backZ2);
+    glVertex3f(3.3, 3.0, frontZ2);
     glEnd();
-    // atas
+
+    // Sisi kanan
     glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(6.8, 11.5, 1.0);
-    glVertex3f(6.9, 11.5, 1.0);
-    glVertex3f(6.9, 11.5, 0.7);
-    glVertex3f(6.8, 11.5, 0.7);
+    glNormal3f(1, 0, 0);
+    glVertex3f(4.5, 4.5, frontZ2);
+    glVertex3f(4.5, 4.5, backZ2);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(3.2, 3.0, frontZ2);
     glEnd();
-    // bawah
+
+    // Bagian kedua ular
+    // Depan
     glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(6.8, 8.8, 1.0);
-    glVertex3f(6.9, 8.8, 1.0);
-    glVertex3f(6.9, 8.8, 0.7);
-    glVertex3f(6.8, 8.8, 0.7);
+    glNormal3f(0, 0, 1);
+    glVertex3f(3.2, 3.0, frontZ2);
+    glVertex3f(3.3, 3.0, frontZ2);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(3.3, 3.0, backZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(4.9, 2.0, backZ2);
+    glEnd();
+
+    // Sisi atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(3.3, 3.0, frontZ2);
+    glVertex3f(3.2, 3.0, frontZ2);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(3.3, 3.0, backZ2);
+    glEnd();
+
+    // Sisi bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(4.9, 2.0, backZ2);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(3.3, 3.0, frontZ2);
+    glVertex3f(3.3, 3.0, backZ2);
+    glVertex3f(4.9, 2.0, backZ2);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(3.2, 3.0, frontZ2);
+    glVertex3f(3.2, 3.0, backZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glEnd();
+
+    // Bagian ketiga ular
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glVertex3f(3.52, 0.5, frontZ2);
+    glVertex3f(3.5, 0.5, frontZ2);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(4.9, 2.0, backZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(3.52, 0.5, backZ2);
+    glVertex3f(3.5, 0.5, backZ2);
+    glEnd();
+
+    // Sisi atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(4.9, 2.0, backZ2);
+    glEnd();
+
+    // Sisi bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(3.5, 0.5, frontZ2);
+    glVertex3f(3.52, 0.5, frontZ2);
+    glVertex3f(3.52, 0.5, backZ2);
+    glVertex3f(3.5, 0.5, backZ2);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(4.9, 2.0, frontZ2);
+    glVertex3f(4.9, 2.0, backZ2);
+    glVertex3f(3.5, 0.5, backZ2);
+    glVertex3f(3.5, 0.5, frontZ2);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(5.0, 2.0, frontZ2);
+    glVertex3f(5.0, 2.0, backZ2);
+    glVertex3f(3.52, 0.5, backZ2);
+    glVertex3f(3.52, 0.5, frontZ2);
     glEnd();
 
     glPopMatrix();
 
+    // MENGGAMBAR ULAR 3D
 
-    // MENGGAMBAR TANGGA 3
     glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    for (float i = 0.4 + 0.4; i < 5.4; i += 0.4) {
-        // anak tangga
-        // depan
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, 1); // Normal untuk semua sisi
-        glVertex3f(i, 5.7, 1.0);
-        glVertex3f(i, 5.7 - 0.4, 1.0);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
-        glVertex3f(i + 0.1, 5.7, 1.0);
-        glEnd();
-        // belakang
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, -1); // Normal untuk semua sisi
-        glVertex3f(i, 5.7, 0.7);
-        glVertex3f(i, 5.7 - 0.4, 0.7);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
-        glVertex3f(i + 0.1, 5.7, 0.7);
-        glEnd();
-        // Sisi kiri
-        glNormal3f(-1,0,0);
-        glBegin(GL_POLYGON);
-        glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(i, 5.7, 1.0);
-        glVertex3f(i, 5.7, 0.7);
-        glVertex3f(i, 5.7 - 0.4, 0.7);
-        glVertex3f(i, 5.7 - 0.4, 1.0);
-        glEnd();
-        // Sisi kanan
-        glNormal3f(1,0,0);
-        glBegin(GL_POLYGON);
-        glNormal3f(1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(i + 0.1, 5.7, 1.0);
-        glVertex3f(i + 0.1, 5.7, 0.7);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
-        glEnd();
-        // Sisi atas
-        glNormal3f(0,1,0);
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 1, 0); // Normal untuk semua sisi
-        glVertex3f(i, 5.7, 1.0);
-        glVertex3f(i, 5.7, 0.7);
-        glVertex3f(i + 0.1, 5.7, 0.7);
-        glVertex3f(i + 0.1, 5.7, 1.0);
-        glEnd();
-        // Sisi bawah
-        glNormal3f(0,-1,0);
-        glBegin(GL_POLYGON);
-        glNormal3f(0, -1, 0); // Normal untuk semua sisi
-        glVertex3f(i, 5.7 - 0.4, 1.0);
-        glVertex3f(i, 5.7 - 0.4, 0.7);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 0.7);
-        glVertex3f(i + 0.1, 5.7 - 0.4, 1.0);
-        glEnd();
-    }
+    glColor3f(1.0, 0.0, 0.0); // Warna merah
 
-    // gagang kiri
-    // depan
+    // Parameter 3D
+    float thickness3 = 0.2f; // Ketebalan ular
+    float frontZ3 = 0.5f;    // Posisi depan
+    float backZ3 = frontZ3 - thickness3; // Posisi belakang
+
+    // Bagian pertama ular (segment pertama)
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7, 1.0);
-    glVertex3f(5.4, 5.7, 1.0);
-    glVertex3f(5.4, 5.7 + 0.1, 1.0);
-    glVertex3f(0.4, 5.7 + 0.1, 1.0);
-    glEnd();
-    // belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7, 0.7);
-    glVertex3f(5.4, 5.7, 0.7);
-    glVertex3f(5.4, 5.7 + 0.1, 0.7);
-    glVertex3f(0.4, 5.7 + 0.1, 0.7);
-    glEnd();
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7, 1.0);
-    glVertex3f(0.4, 5.7, 0.7);
-    glVertex3f(0.4, 5.7 + 0.1, 0.7);
-    glVertex3f(0.4, 5.7 + 0.1, 1.0);
-    glEnd();
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(5.4, 5.7, 1.0);
-    glVertex3f(5.4, 5.7, 0.7);
-    glVertex3f(5.4, 5.7 + 0.1, 0.7);
-    glVertex3f(5.4, 5.7 + 0.1, 1.0);
-    glEnd();
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 + 0.1, 1.0);
-    glVertex3f(5.4, 5.7 + 0.1, 1.0);
-    glVertex3f(5.4, 5.7 + 0.1, 0.7);
-    glVertex3f(0.4, 5.7 + 0.1, 0.7);
-    glEnd();
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7, 1.0);
-    glVertex3f(5.4, 5.7, 1.0);
-    glVertex3f(5.4, 5.7, 0.7);
-    glVertex3f(0.4, 5.7, 0.7);
+    glNormal3f(0, 0, 1);
+    glVertex3f(1.45, 9.49, frontZ3);
+    glVertex3f(1.6, 9.5, frontZ3);
+    glVertex3f(3.4, 8.3, frontZ3);
+    glVertex3f(3.3, 8.3, frontZ3);
     glEnd();
 
-    // gagang kanan
-    // depan
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 - 0.5, 1.0);
-    glVertex3f(5.4, 5.7 - 0.5, 1.0);
-    glVertex3f(5.4, 5.7 - 0.4, 1.0);
-    glVertex3f(0.4, 5.7 - 0.4, 1.0);
+    glNormal3f(0, 0, -1);
+    glVertex3f(1.45, 9.49, backZ3);
+    glVertex3f(1.6, 9.5, backZ3);
+    glVertex3f(3.4, 8.3, backZ3);
+    glVertex3f(3.3, 8.3, backZ3);
     glEnd();
-    // belakang
+
+    // Sisi kiri
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 - 0.5, 0.7);
-    glVertex3f(5.4, 5.7 - 0.5, 0.7);
-    glVertex3f(5.4, 5.7 - 0.4, 0.7);
-    glVertex3f(0.4, 5.7 - 0.4, 0.7);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(1.45, 9.49, frontZ3);
+    glVertex3f(1.45, 9.49, backZ3);
+    glVertex3f(3.3, 8.3, backZ3);
+    glVertex3f(3.3, 8.3, frontZ3);
     glEnd();
-    // Kiri
+
+    // Sisi kanan
     glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 - 0.5, 1.0);
-    glVertex3f(0.4, 5.7 - 0.5, 0.7);
-    glVertex3f(0.4, 5.7 - 0.4, 0.7);
-    glVertex3f(0.4, 5.7 - 0.4, 1.0);
+    glNormal3f(1, 0, 0);
+    glVertex3f(1.6, 9.5, frontZ3);
+    glVertex3f(1.6, 9.5, backZ3);
+    glVertex3f(3.4, 8.3, backZ3);
+    glVertex3f(3.4, 8.3, frontZ3);
     glEnd();
-    // Kanan
+
+    // Bagian kedua ular (segment kedua)
     glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(5.4, 5.7 - 0.5, 1.0);
-    glVertex3f(5.4, 5.7 - 0.5, 0.7);
-    glVertex3f(5.4, 5.7 - 0.4, 0.7);
-    glVertex3f(5.4, 5.7 - 0.4, 1.0);
+    glNormal3f(0, 0, 1);
+    glVertex3f(3.3, 8.3, frontZ3);
+    glVertex3f(3.4, 8.3, frontZ3);
+    glVertex3f(1.7, 7.5, frontZ3);
+    glVertex3f(1.6, 7.5, frontZ3);
     glEnd();
-    // Atas
+
     glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 - 0.4, 1.0);
-    glVertex3f(5.4, 5.7 - 0.4, 1.0);
-    glVertex3f(5.4, 5.7 - 0.4, 0.7);
-    glVertex3f(0.4, 5.7 - 0.4, 0.7);
+    glNormal3f(0, 0, -1);
+    glVertex3f(3.3, 8.3, backZ3);
+    glVertex3f(3.4, 8.3, backZ3);
+    glVertex3f(1.7, 7.5, backZ3);
+    glVertex3f(1.6, 7.5, backZ3);
     glEnd();
-    // Bawah
+
+    // Sisi kiri
     glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(0.4, 5.7 - 0.5, 1.0);
-    glVertex3f(5.4, 5.7 - 0.5, 1.0);
-    glVertex3f(5.4, 5.7 - 0.5, 0.7);
-    glVertex3f(0.4, 5.7 - 0.5, 0.7);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(3.3, 8.3, frontZ3);
+    glVertex3f(3.3, 8.3, backZ3);
+    glVertex3f(1.6, 7.5, backZ3);
+    glVertex3f(1.6, 7.5, frontZ3);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(3.4, 8.3, frontZ3);
+    glVertex3f(3.4, 8.3, backZ3);
+    glVertex3f(1.7, 7.5, backZ3);
+    glVertex3f(1.7, 7.5, frontZ3);
+    glEnd();
+
+    // Bagian ketiga ular (segment ketiga)
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(1.6, 7.5, frontZ3);
+    glVertex3f(1.7, 7.5, frontZ3);
+    glVertex3f(3.5, 6.33, frontZ3);
+    glVertex3f(3.5, 6.3, frontZ3);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(1.6, 7.5, backZ3);
+    glVertex3f(1.7, 7.5, backZ3);
+    glVertex3f(3.5, 6.33, backZ3);
+    glVertex3f(3.5, 6.3, backZ3);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(1.6, 7.5, frontZ3);
+    glVertex3f(1.6, 7.5, backZ3);
+    glVertex3f(3.5, 6.3, backZ3);
+    glVertex3f(3.5, 6.3, frontZ3);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(1.7, 7.5, frontZ3);
+    glVertex3f(1.7, 7.5, backZ3);
+    glVertex3f(3.5, 6.33, backZ3);
+    glVertex3f(3.5, 6.33, frontZ3);
     glEnd();
 
     glPopMatrix();
 
-
-
-    //MENGGAMBAR TANGGA 4
+    // MENGGAMBAR ULAR 3D
     glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    for (float i = 0; i < 3; i += 0.5) {
-        // anak tangga
-        // depan
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, 1); // Normal menghadap ke depan
-        glVertex3f(2.6f + i, 7.9f + i, 1.0);
-        glVertex3f(2.5f + i, 7.8f + i, 1.0);
-        glVertex3f(2.95f + i, 7.5f + i, 1.0);
-        glVertex3f(3.0f + i, 7.6f + i, 1.0);
-        glEnd();
+    glColor3f(1.0, 0.0, 0.0); // Warna merah
 
-        // belakang
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-        glVertex3f(2.6f + i, 7.9f + i, 0.7);
-        glVertex3f(2.5f + i, 7.8f + i, 0.7);
-        glVertex3f(2.95f + i, 7.5f + i, 0.7);
-        glVertex3f(3.0f + i, 7.6f + i, 0.7);
-        glEnd();
+    // MENGGAMBAR ULAR 3D
+    glPushMatrix();
+    glColor3f(1.0, 0.0, 0.0); // Warna merah
 
-        // kiri
-        glBegin(GL_POLYGON);
-        glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-        glVertex3f(2.6f + i, 7.9f + i, 1.0);
-        glVertex3f(2.5f + i, 7.8f + i, 1.0);
-        glVertex3f(2.5f + i, 7.8f + i, 0.7);
-        glVertex3f(2.6f + i, 7.9f + i, 0.7);
-        glEnd();
+    // Parameter 3D
+    float thickness4 = 0.3f; // Ketebalan ular
+    float frontZ4 = 0.5f;    // Posisi depan
+    float backZ4 = frontZ4 - thickness4; // Posisi belakang
 
-        // kanan
-        glBegin(GL_POLYGON);
-        glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-        glVertex3f(2.95f + i, 7.5f + i, 1.0);
-        glVertex3f(3.0f + i, 7.6f + i, 1.0);
-        glVertex3f(3.0f + i, 7.6f + i, 0.7);
-        glVertex3f(2.95f + i, 7.5f + i, 0.7);
-        glEnd();
-
-        // atas
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 1, 0); // Normal menghadap ke atas
-        glVertex3f(2.6f + i, 7.9f + i, 1.0);
-        glVertex3f(3.0f + i, 7.6f + i, 1.0);
-        glVertex3f(3.0f + i, 7.6f + i, 0.7);
-        glVertex3f(2.6f + i, 7.9f + i, 0.7);
-        glEnd();
-
-        // bawah
-        glBegin(GL_POLYGON);
-        glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-        glVertex3f(2.5f + i, 7.8f + i, 1.0);
-        glVertex3f(2.95f + i, 7.5f + i, 1.0);
-        glVertex3f(2.95f + i, 7.5f + i, 0.7);
-        glVertex3f(2.5f + i, 7.8f + i, 0.7);
-        glEnd();
-    }
-    //gagang kiri
-    // Depan
+    // Bagian pertama ular (segment pertama)
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(2.4f, 7.7f, 1.0);
-    glVertex3f(2.5f, 7.6f, 1.0);
-    glVertex3f(5.4f, 10.7f, 1.0);
-    glVertex3f(5.3f, 10.8f, 1.0);
-    glEnd();
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(2.4f, 7.7f, 0.7);
-    glVertex3f(2.5f, 7.6f, 0.7);
-    glVertex3f(5.4f, 10.7f, 0.7);
-    glVertex3f(5.3f, 10.8f, 0.7);
-    glEnd();
-    // Sisi Kir
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(2.4f, 7.7f, 1.0);
-    glVertex3f(2.4f, 7.7f, 0.7);
-    glVertex3f(5.3f, 10.8f, 0.7);
-    glVertex3f(5.3f, 10.8f, 1.0);
-    glEnd();
-    // Sisi Kana
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(2.5f, 7.6f, 1.0);
-    glVertex3f(2.5f, 7.6f, 0.7);
-    glVertex3f(5.4f, 10.7f, 0.7);
-    glVertex3f(5.4f, 10.7f, 1.0);
-    glEnd();
-    // Sisi Atas
-    glNormal3f(0,1,0);
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(5.3f, 10.8f, 1.0);
-    glVertex3f(5.3f, 10.8f, 0.7);
-    glVertex3f(5.4f, 10.7f, 0.7);
-    glVertex3f(5.4f, 10.7f, 1.0);
-    glEnd();
-    // Sisi Bawah
-    glNormal3f(0,-1,0);
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(2.4f, 7.7f, 1.0);
-    glVertex3f(2.4f, 7.7f, 0.7);
-    glVertex3f(2.5f, 7.6f, 0.7);
-    glVertex3f(2.5f, 7.6f, 1.0);
+    glNormal3f(0, 0, 1);
+    glVertex3f(1.48, 13.48, frontZ4);
+    glVertex3f(1.6, 13.5, frontZ4);
+    glVertex3f(2.2, 10.85, frontZ4);
+    glVertex3f(2.1, 10.7, frontZ4);
     glEnd();
 
-    //gagang kanan
-    //depan
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(2.7f, 7.3f, 1.0);
-    glVertex3f(2.8f, 7.2f, 1.0);
-    glVertex3f(5.7f, 10.3f, 1.0);
-    glVertex3f(5.6f, 10.4f, 1.0);
+    glNormal3f(0, 0, -1);
+    glVertex3f(1.48, 13.48, backZ4);
+    glVertex3f(1.6, 13.5, backZ4);
+    glVertex3f(2.2, 10.85, backZ4);
+    glVertex3f(2.1, 10.7, backZ4);
     glEnd();
-    //belakang
+
+    // Sisi kiri
     glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(2.7f, 7.3f, 0.7);
-    glVertex3f(2.8f, 7.2f, 0.7);
-    glVertex3f(5.7f, 10.3f, 0.7);
-    glVertex3f(5.6f, 10.4f, 0.7);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(1.48, 13.48, frontZ4);
+    glVertex3f(1.48, 13.48, backZ4);
+    glVertex3f(2.1, 10.7, backZ4);
+    glVertex3f(2.1, 10.7, frontZ4);
     glEnd();
-    //Kiri
+
+    // Sisi kanan
     glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(2.7f, 7.3f, 1.0);
-    glVertex3f(2.7f, 7.3f, 0.7);
-    glVertex3f(2.8f, 7.2f, 0.7);
-    glVertex3f(2.8f, 7.2f, 1.0);
+    glNormal3f(1, 0, 0);
+    glVertex3f(1.6, 13.5, frontZ4);
+    glVertex3f(1.6, 13.5, backZ4);
+    glVertex3f(2.2, 10.85, backZ4);
+    glVertex3f(2.2, 10.85, frontZ4);
     glEnd();
-    //Kanan
+
+    // Bagian kedua ular (segment kedua)
     glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(5.7f, 10.3f, 1.0);
-    glVertex3f(5.7f, 10.3f, 0.7);
-    glVertex3f(5.6f, 10.4f, 0.7);
-    glVertex3f(5.6f, 10.4f, 1.0);
+    glNormal3f(0, 0, 1);
+    glVertex3f(2.2, 10.85, frontZ4);
+    glVertex3f(2.1, 10.7, frontZ4);
+    glVertex3f(4.3, 11.7, frontZ4);
+    glVertex3f(4.3, 11.8, frontZ4);
     glEnd();
-    //Atas
+
     glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(2.8f, 7.2f, 1.0);
-    glVertex3f(2.8f, 7.2f, 0.7);
-    glVertex3f(5.7f, 10.3f, 0.7);
-    glVertex3f(5.7f, 10.3f, 1.0);
+    glNormal3f(0, 0, -1);
+    glVertex3f(2.2, 10.85, backZ4);
+    glVertex3f(2.1, 10.7, backZ4);
+    glVertex3f(4.3, 11.7, backZ4);
+    glVertex3f(4.3, 11.8, backZ4);
     glEnd();
-    //Bawah
+
+    // Sisi kiri
     glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(2.7f, 7.3f, 1.0);
-    glVertex3f(2.7f, 7.3f, 0.7);
-    glVertex3f(5.6f, 10.4f, 0.7);
-    glVertex3f(5.6f, 10.4f, 1.0);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(2.2, 10.85, frontZ4);
+    glVertex3f(2.2, 10.85, backZ4);
+    glVertex3f(4.3, 11.8, backZ4);
+    glVertex3f(4.3, 11.8, frontZ4);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(2.1, 10.7, frontZ4);
+    glVertex3f(2.1, 10.7, backZ4);
+    glVertex3f(4.3, 11.7, backZ4);
+    glVertex3f(4.3, 11.7, frontZ4);
+    glEnd();
+
+    // Bagian ketiga ular (segment ketiga)
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(4.3, 11.7, frontZ4);
+    glVertex3f(4.3, 11.8, frontZ4);
+    glVertex3f(5.52, 9.5, frontZ4);
+    glVertex3f(5.5, 9.5, frontZ4);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(4.3, 11.7, backZ4);
+    glVertex3f(4.3, 11.8, backZ4);
+    glVertex3f(5.52, 9.5, backZ4);
+    glVertex3f(5.5, 9.5, backZ4);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(4.3, 11.7, frontZ4);
+    glVertex3f(4.3, 11.7, backZ4);
+    glVertex3f(5.5, 9.5, backZ4);
+    glVertex3f(5.5, 9.5, frontZ4);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(4.3, 11.8, frontZ4);
+    glVertex3f(4.3, 11.8, backZ4);
+    glVertex3f(5.52, 9.5, backZ4);
+    glVertex3f(5.52, 9.5, frontZ4);
     glEnd();
 
     glPopMatrix();
-
-
-    // Menggambar ular 1
-    // Kepala ular
-    glPushMatrix();
-    glColor3f(0.0, 0.0, 1.0);
-
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(5.5, 9.5, 1.0);
-    glVertex3f(5.6, 9.5, 1.0);
-    glVertex3f(5.6, 7.4, 1.0);
-    glVertex3f(5.5, 7.4, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(5.5, 9.5, 0.7);
-    glVertex3f(5.6, 9.5, 0.7);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(5.5, 7.4, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(5.5, 9.5, 1.0);
-    glVertex3f(5.5, 9.5, 0.7);
-    glVertex3f(5.5, 7.4, 0.7);
-    glVertex3f(5.5, 7.4, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(5.6, 9.5, 1.0);
-    glVertex3f(5.6, 9.5, 0.7);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(5.6, 7.4, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(5.5, 9.5, 1.0);
-    glVertex3f(5.6, 9.5, 1.0);
-    glVertex3f(5.6, 9.5, 0.7);
-    glVertex3f(5.5, 9.5, 0.7);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(5.5, 7.4, 1.0);
-    glVertex3f(5.6, 7.4, 1.0);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(5.5, 7.4, 0.7);
-    glEnd();
-
-    // Badan ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(5.5, 7.4, 1.0);
-    glVertex3f(5.6, 7.4, 1.0);
-    glVertex3f(3.2, 6.2, 1.0);
-    glVertex3f(3.1, 6.2, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(5.5, 7.4, 0.7);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(3.1, 6.2, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(3.1, 6.2, 1.0);
-    glVertex3f(3.1, 6.2, 0.7);
-    glVertex3f(5.5, 7.4, 0.7);
-    glVertex3f(5.5, 7.4, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(3.2, 6.2, 1.0);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(5.6, 7.4, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(5.5, 7.4, 1.0);
-    glVertex3f(5.5, 7.4, 0.7);
-    glVertex3f(5.6, 7.4, 0.7);
-    glVertex3f(5.6, 7.4, 1.0);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(3.1, 6.2, 1.0);
-    glVertex3f(3.1, 6.2, 0.7);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(3.2, 6.2, 1.0);
-    glEnd();
-
-    // Ekor ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(3.1, 6.2, 1.0);
-    glVertex3f(3.2, 6.2, 1.0);
-    glVertex3f(3.5, 3.5, 1.0);
-    glVertex3f(3.5, 3.5, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(3.1, 6.2, 0.7);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(3.5, 3.5, 0.7);
-    glVertex3f(3.5, 3.5, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(3.1, 6.2, 1.0);
-    glVertex3f(3.1, 6.2, 0.7);
-    glVertex3f(3.5, 3.5, 0.7);
-    glVertex3f(3.5, 3.5, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(3.2, 6.2, 1.0);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(3.5, 3.5, 0.7);
-    glVertex3f(3.5, 3.5, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(3.1, 6.2, 1.0);
-    glVertex3f(3.2, 6.2, 1.0);
-    glVertex3f(3.2, 6.2, 0.7);
-    glVertex3f(3.1, 6.2, 0.7);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(3.5, 3.5, 1.0);
-    glVertex3f(3.5, 3.5, 0.7);
-    glVertex3f(3.5, 3.5, 0.7);
-    glVertex3f(3.5, 3.5, 1.0);
-    glEnd();
-
-    glPopMatrix();
-
-
-    // Menggambar ular 2
-
-    // Kepala ular
-    glPushMatrix();
-    glColor3f(0.0, 0.0, 1.0);
-
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(1.5, 11.5, 1.0);
-    glVertex3f(1.6, 11.5, 1.0);
-    glVertex3f(2.6, 10.5, 1.0);
-    glVertex3f(2.5, 10.5, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(1.5, 11.5, 0.7);
-    glVertex3f(1.6, 11.5, 0.7);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.5, 10.5, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(1.5, 11.5, 1.0);
-    glVertex3f(1.5, 11.5, 0.7);
-    glVertex3f(2.5, 10.5, 0.7);
-    glVertex3f(2.5, 10.5, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(1.6, 11.5, 1.0);
-    glVertex3f(1.6, 11.5, 0.7);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.6, 10.5, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(1.5, 11.5, 1.0);
-    glVertex3f(1.6, 11.5, 1.0);
-    glVertex3f(1.6, 11.5, 0.7);
-    glVertex3f(1.5, 11.5, 0.7);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(2.5, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.5, 10.5, 0.7);
-    glEnd();
-
-    // Badan ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(2.5, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 1.0);
-    glVertex3f(2.6, 9.8, 1.0);
-    glVertex3f(2.5, 9.8, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(2.5, 10.5, 0.7);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(2.5, 9.8, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(2.5, 10.5, 1.0);
-    glVertex3f(2.5, 10.5, 0.7);
-    glVertex3f(2.5, 9.8, 0.7);
-    glVertex3f(2.5, 9.8, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(2.6, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(2.6, 9.8, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(2.5, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 1.0);
-    glVertex3f(2.6, 10.5, 0.7);
-    glVertex3f(2.5, 10.5, 0.7);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(2.5, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(2.5, 9.8, 0.7);
-    glEnd();
-
-    // Ekor ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(2.5, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 1.0);
-    glVertex3f(1.5, 9.3, 1.0);
-    glVertex3f(1.5, 9.3, 1.0);
-    glEnd();
-
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(2.5, 9.8, 0.7);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(1.5, 9.3, 0.7);
-    glVertex3f(1.5, 9.3, 0.7);
-    glEnd();
-
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(2.5, 9.8, 1.0);
-    glVertex3f(2.5, 9.8, 0.7);
-    glVertex3f(1.5, 9.3, 0.7);
-    glVertex3f(1.5, 9.3, 1.0);
-    glEnd();
-
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(2.6, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(1.5, 9.3, 0.7);
-    glVertex3f(1.5, 9.3, 1.0);
-    glEnd();
-
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(2.5, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 1.0);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(2.5, 9.8, 0.7);
-    glEnd();
-
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(1.5, 9.3, 1.0);
-    glVertex3f(1.5, 9.3, 0.7);
-    glVertex3f(2.6, 9.8, 0.7);
-    glVertex3f(2.6, 9.8, 1.0);
-    glEnd();
-
-    glPopMatrix();
-
-
-
-    // MENGGAMBAR ULAR 3
-    glPushMatrix();
-    glColor3f(0.0, 0.0, 1.0);
-
-    // Kepala ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(6.5, 3.5, 1.0);
-    glVertex3f(6.5 + 0.1, 3.5, 1.0);
-    glVertex3f(5.5 + 0.1, 2.4, 1.0);
-    glVertex3f(5.5, 2.4, 1.0);
-    glEnd();
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(6.5, 3.5, 0.7);
-    glVertex3f(6.5 + 0.1, 3.5, 0.7);
-    glVertex3f(5.5 + 0.1, 2.4, 0.7);
-    glVertex3f(5.5, 2.4, 0.7);
-    glEnd();
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(6.5, 3.5, 1.0);
-    glVertex3f(6.5, 3.5, 0.7);
-    glVertex3f(5.5, 2.4, 0.7);
-    glVertex3f(5.5, 2.4, 1.0);
-    glEnd();
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(6.5 + 0.1, 3.5, 1.0);
-    glVertex3f(6.5 + 0.1, 3.5, 0.7);
-    glVertex3f(5.5 + 0.1, 2.4, 0.7);
-    glVertex3f(5.5 + 0.1, 2.4, 1.0);
-    glEnd();
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(6.5, 3.5, 1.0);
-    glVertex3f(6.5 + 0.1, 3.5, 1.0);
-    glVertex3f(6.5 + 0.1, 3.5, 0.7);
-    glVertex3f(6.5, 3.5, 0.7);
-    glEnd();
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(5.5, 2.4, 1.0);
-    glVertex3f(5.5 + 0.1, 2.4, 1.0);
-    glVertex3f(5.5 + 0.1, 2.4, 0.7);
-    glVertex3f(5.5, 2.4, 0.7);
-    glEnd();
-
-    // Badan ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(5.5, 2.4, 1.0);
-    glVertex3f(5.6, 2.4, 1.0);
-    glVertex3f(6.2, 1.7, 1.0);
-    glVertex3f(6.1, 1.7, 1.0);
-    glEnd();
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(5.5, 2.4, 0.7);
-    glVertex3f(5.6, 2.4, 0.7);
-    glVertex3f(6.2, 1.7, 0.7);
-    glVertex3f(6.1, 1.7, 0.7);
-    glEnd();
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(5.5, 2.4, 1.0);
-    glVertex3f(5.5, 2.4, 0.7);
-    glVertex3f(6.1, 1.7, 0.7);
-    glVertex3f(6.1, 1.7, 1.0);
-    glEnd();
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(5.6, 2.4, 1.0);
-    glVertex3f(5.6, 2.4, 0.7);
-    glVertex3f(6.2, 1.7, 0.7);
-    glVertex3f(6.2, 1.7, 1.0);
-    glEnd();
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(5.5, 2.4, 1.0);
-    glVertex3f(5.6, 2.4, 1.0);
-    glVertex3f(5.6, 2.4, 0.7);
-    glVertex3f(5.5, 2.4, 0.7);
-    glEnd();
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(6.1, 1.7, 1.0);
-    glVertex3f(6.2, 1.7, 1.0);
-    glVertex3f(6.2, 1.7, 0.7);
-    glVertex3f(6.1, 1.7, 0.7);
-    glEnd();
-
-    // Ekor ular
-    // Depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal menghadap ke depan
-    glVertex3f(6.1, 1.7, 1.0);
-    glVertex3f(6.1 + 0.1, 1.7, 1.0);
-    glVertex3f(4.5, 0.7, 1.0);
-    glVertex3f(4.5, 0.7, 1.0);
-    glEnd();
-    // Belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal menghadap ke belakang
-    glVertex3f(6.1, 1.7, 0.7);
-    glVertex3f(6.1 + 0.1, 1.7, 0.7);
-    glVertex3f(4.5, 0.7, 0.7);
-    glVertex3f(4.5, 0.7, 0.7);
-    glEnd();
-    // Kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal menghadap ke kiri
-    glVertex3f(6.1, 1.7, 1.0);
-    glVertex3f(6.1, 1.7, 0.7);
-    glVertex3f(4.5, 0.7, 0.7);
-    glVertex3f(4.5, 0.7, 1.0);
-    glEnd();
-    // Kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal menghadap ke kanan
-    glVertex3f(6.1 + 0.1, 1.7, 1.0);
-    glVertex3f(6.1 + 0.1, 1.7, 0.7);
-    glVertex3f(4.5, 0.7, 0.7);
-    glVertex3f(4.5, 0.7, 1.0);
-    glEnd();
-    // Atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal menghadap ke atas
-    glVertex3f(6.1, 1.7, 1.0);
-    glVertex3f(6.1 + 0.1, 1.7, 1.0);
-    glVertex3f(6.1 + 0.1, 1.7, 0.7);
-    glVertex3f(6.1, 1.7, 0.7);
-    glEnd();
-    // Bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal menghadap ke bawah
-    glVertex3f(4.5, 0.7, 1.0);
-    glVertex3f(4.5, 0.7, 0.7);
-    glVertex3f(6.1 + 0.1, 1.7, 0.7);
-    glVertex3f(6.1, 1.7, 1.0);
-    glEnd();
-
-    glPopMatrix();
-
 
 }
 
@@ -2239,7 +1648,7 @@ void drawKotak(bool warna_transparan) {
 void drawPagar(){
 
     // ATAS (Top fence)
-    glColor3f(0, 1, 0);
+    glColor3f(0.745, 1, 0);
     glBegin(GL_POLYGON);
     // Depan
     glNormal3f(0, 0, -1);
@@ -2295,7 +1704,6 @@ void drawPagar(){
     glEnd();
 
     // BAWAH (Bottom fence)
-    glColor3f(0, 1, 0);
     glBegin(GL_POLYGON);
     // Depan
     glNormal3f(0, 0, -1);
@@ -2462,10 +1870,10 @@ void drawPagar(){
 
 
 
-    glColor3f(1, 0, 0); // Warna merah (sama untuk semua pagar)
+    glColor3f(0.745, 1, 0);
 
     // Parameter dasar
-    float tinggi = 0.2f;       // Tinggi semua pagar
+    float tinggi = 0.1f;       // Tinggi semua pagar
     float zDepan = 0.3f;       // Posisi Z depan
     float zBelakang = 0.0f;    // Posisi Z belakang
 
@@ -2641,7 +2049,6 @@ void drawBoard() {
 
 
     drawPagar();
-    drawObserver(geser_oberver_X, geser_oberver_Y);
 
     drawPlayer1(bidak_player1_X, bidak_player1_Y);
     drawPlayer2(bidak_player2_X, bidak_player2_Y);
@@ -2916,10 +2323,21 @@ void input(unsigned char key, int x, int y) {
                 cout << "Kotak Player 1 : " << jumlahlemparan << endl;
                 cout << "===========================================================" << endl;
 
-                // Tentukan posisi berdasarkan jumlah lemparan Player 1
+
                 if (jumlahlemparan <= 6) {  // Gerakan ke kanan (1-6)
-                    bidak_player1_X = (jumlahlemparan - 1) + 0.5;  // Posisikan di tengah kotak
-                    bidak_player1_Y = 0.5 + 0.2;  // Menambahkan offset ke atas
+                    // Cek apakah akan mendarat di kotak 3
+                    if (jumlahlemparan == 3) {  // Jika posisi di kotak 3
+                        jumlahlemparan = 22;  // Langsung pindah ke kotak 22
+                        cout << "Player 1 naik ke kotak 22!" << endl;
+                        // Posisikan Player 1 pada koordinat kotak 22
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 18);  // Kolom 22, tengah kotak
+                        bidak_player1_Y = 3.5 + 0.2;  // Baris yang sesuai untuk kotak 22
+                    }
+                    else {
+                        // Gerakan normal ke kanan
+                        bidak_player1_X = (jumlahlemparan - 1) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player1_Y = 0.5 + 0.2;  // Menambahkan offset ke atas
+                    }
                 }
                 else if (jumlahlemparan <= 12) {  // Naik pada kolom 6 (7-12)
                     bidak_player1_X = 6.5 - (jumlahlemparan - 6);  // Geser ke kiri
@@ -2934,28 +2352,68 @@ void input(unsigned char key, int x, int y) {
                     bidak_player1_Y = 3.5 + 0.2;  // Tetap di baris ke-4
                 }
                 else if (jumlahlemparan <= 30) {  // Gerakan ke kanan (25-30)
-                    bidak_player1_X = (jumlahlemparan - 25) + 0.5;  // Posisikan di tengah kotak
-                    bidak_player1_Y = 4.5 + 0.2;  // Menambahkan offset ke atas
+                    // Cek apakah akan mendarat di kotak 29
+                    if (jumlahlemparan == 29) {
+                        jumlahlemparan = 4;  // Langsung pindah ke kotak 4
+                        cout << "Player 1 turun ke kotak 4!" << endl;
+                        // Gerakan normal ke kanan
+                        bidak_player1_X = (jumlahlemparan - 1) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player1_Y = 0.5 + 0.2;  // Menambahkan offset ke atas
+                    } else {
+                        // Gerakan normal ke kanan untuk kotak 25-28 dan 30
+                        bidak_player1_X = (jumlahlemparan - 25) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player1_Y = 4.5 + 0.2;  // Menambahkan offset ke atas
+                    }
                 }
                 else if (jumlahlemparan <= 36) {  // Naik pada kolom 6 (31-36)
-                    bidak_player1_X = 6.5 - (jumlahlemparan - 30);  // Geser ke kiri
-                    bidak_player1_Y = 5.5 + 0.2;  // Menambahkan offset ke atas
+                    // Cek jika mendarat di kotak 31
+                    if (jumlahlemparan == 31) {
+                        jumlahlemparan = 36;  // Langsung pindah ke kotak 36
+                        cout << "Player 1 melompat ke kotak 36!" << endl;
+                        // Posisikan di kotak 36
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 30);  // 6.5 - 6 = 0.5 (paling kiri kolom 6)
+                        bidak_player1_Y = 5.5 + 0.2;  // Baris paling atas dengan offset atas
+                    }
+                    else {
+                        // Gerakan normal
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 30);  // Geser ke kiri
+                        bidak_player1_Y = 5.5 + 0.2;  // Menambahkan offset ke atas
+                    }
                 }
                 else if (jumlahlemparan <= 42) {  // Gerakan ke kanan (25-30)
                     bidak_player1_X = (jumlahlemparan - 37) + 0.5;  // Posisikan di tengah kotak
-                    bidak_player1_Y = 6.5 - 0.2;  // Menambahkan offset ke bawah
+                    bidak_player1_Y = 6.5 + 0.2;  // Menambahkan offset ke bawah
                 }
                 else if (jumlahlemparan <= 48) {  // Naik pada kolom 6 (31-36)
                     bidak_player1_X = 6.5 - (jumlahlemparan - 42);  // Geser ke kiri
-                    bidak_player1_Y = 7.5 - 0.2;  // Menambahkan offset ke bawah
+                    bidak_player1_Y = 7.5 + 0.2;  // Menambahkan offset ke bawah
                 }
                 else if (jumlahlemparan <= 54) {  // Gerakan ke kanan (49-54)
                     bidak_player1_X = (jumlahlemparan - 49) + 0.5;  // Posisikan di tengah kotak
                     bidak_player1_Y = 8.5 + 0.2;  // Menambahkan offset ke atas
                 }
                 else if (jumlahlemparan <= 60) {  // Naik pada kolom 6 (55-60)
-                    bidak_player1_X = 6.5 - (jumlahlemparan - 54);  // Geser ke kiri
-                    bidak_player1_Y = 9.5 + 0.2;  // Menambahkan offset ke atas
+                    // Cek jika mendarat di kotak 58
+                    if (jumlahlemparan == 58) {
+                        jumlahlemparan = 80;  // Langsung pindah ke kotak 80
+                        cout << "Player 1 naik cepat ke kotak 80!" << endl;
+                        // Posisikan di kotak 80 (perlu menyesuaikan rumus koordinat untuk kotak 80)
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 78);  // Geser ke kiri
+                        bidak_player1_Y = 13.5 + 0.2;  // Menambahkan offset ke atas
+                    }
+                    // Cek jika mendarat di kotak 59
+                    else if (jumlahlemparan == 59) {
+                        jumlahlemparan = 40;  // Langsung pindah ke kotak 40
+                        cout << "Player 1 turun ke kotak 40!" << endl;
+                        // Posisikan di kotak 40 (perlu menyesuaikan rumus koordinat untuk kotak 40)
+                        bidak_player1_X = (jumlahlemparan - 37) + 0.5;
+                        bidak_player1_Y = 6.5 + 0.2;  // Menambahkan offset ke bawah
+                    }
+                    else {
+                        // Gerakan normal untuk 55-57, 59-60
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 54);  // Geser ke kiri
+                        bidak_player1_Y = 9.5 + 0.2;  // Menambahkan offset ke atas
+                    }
                 }
                 else if (jumlahlemparan <= 66) {  // Gerakan ke kanan (61-66)
                     bidak_player1_X = (jumlahlemparan - 61) + 0.5;  // Posisikan di tengah kotak
@@ -2969,10 +2427,21 @@ void input(unsigned char key, int x, int y) {
                     bidak_player1_X = (jumlahlemparan - 73) + 0.5;  // Posisikan di tengah kotak
                     bidak_player1_Y = 12.5 + 0.2;  // Menambahkan offset ke atas
                 }
-                else if (jumlahlemparan <= 83) {  // Naik pada kolom 6 (79-84)
-                    bidak_player1_X = 6.5 - (jumlahlemparan - 78);  // Geser ke kiri
-                    bidak_player1_Y = 13.5 + 0.2;  // Menambahkan offset ke atas
+                else if (jumlahlemparan <= 83) {  // Naik pada kolom 6 (79-83)
+                    // Cek jika mendarat di kotak 83
+                    if (jumlahlemparan == 83) {
+                        jumlahlemparan = 55;  // Langsung pindah ke kotak 55
+                        cout << "Player 1 turun ke kotak 55!" << endl;
+                        // Posisikan di kotak 55
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 54);  // Geser ke kiri
+                        bidak_player1_Y = 9.5 + 0.2;  // Menambahkan offset ke atas
+                    } else {
+                        // Gerakan normal untuk 79-82
+                        bidak_player1_X = 6.5 - (jumlahlemparan - 78);  // Geser ke kiri
+                        bidak_player1_Y = 13.5 + 0.2;  // Menambahkan offset ke bawah
+                    }
                 }
+
                 else if (jumlahlemparan == 84) {  // Naik pada kolom 6 (79-84)
                     bidak_player1_X = 0.5;
                     bidak_player1_Y = 13.5 + 0.2;  // Posisi di kotak 84
@@ -2998,8 +2467,19 @@ void input(unsigned char key, int x, int y) {
 
                 // Tentukan posisi berdasarkan jumlah lemparan Player 2
                 if (jumlahlemparan2 <= 6) {  // Gerakan ke kanan (1-6)
-                    bidak_player2_X = (jumlahlemparan2 - 1) + 0.5;  // Posisikan di tengah kotak
-                    bidak_player2_Y = 0.5 - 0.2;  // Menambahkan offset ke bawah
+                    // Cek apakah akan mendarat di kotak 3
+                    if (jumlahlemparan2 == 3) {  // Jika posisi di kotak 3
+                        jumlahlemparan2 = 22;  // Langsung pindah ke kotak 22
+                        cout << "Player 2 naik ke kotak 22!" << endl;
+                        // Posisikan Player 2 pada koordinat kotak 22
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 18);  // Kolom 22, tengah kotak
+                        bidak_player2_Y = 3.5 - 0.2;  // Baris yang sesuai untuk kotak 22 (dengan offset bawah)
+                    }
+                    else {
+                        // Gerakan normal ke kanan
+                        bidak_player2_X = (jumlahlemparan2 - 1) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player2_Y = 0.5 - 0.2;  // Menambahkan offset ke bawah
+                    }
                 }
                 else if (jumlahlemparan2 <= 12) {  // Naik pada kolom 6 (7-12)
                     bidak_player2_X = 6.5 - (jumlahlemparan2 - 6);  // Geser ke kiri
@@ -3015,12 +2495,34 @@ void input(unsigned char key, int x, int y) {
                 }
 
                 else if (jumlahlemparan2 <= 30) {  // Gerakan ke kanan (25-30)
-                    bidak_player2_X = (jumlahlemparan2 - 25) + 0.5;  // Posisikan di tengah kotak
-                    bidak_player2_Y = 4.5 - 0.2;  // Menambahkan offset ke bawah
+                    // Cek apakah akan mendarat di kotak 29
+                    if (jumlahlemparan2 == 29) {
+                        jumlahlemparan2 = 4;  // Langsung pindah ke kotak 4
+                        cout << "Player 2 turun ke kotak 4!" << endl;
+                        // Gerakan normal ke kanan untuk kotak 4
+                        bidak_player2_X = (jumlahlemparan2 - 1) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player2_Y = 0.5 - 0.2;  // Menambahkan offset ke atas untuk Player 2
+                    } else {
+                        // Gerakan normal ke kanan untuk kotak 25-28 dan 30
+                        bidak_player2_X = (jumlahlemparan2 - 25) + 0.5;  // Posisikan di tengah kotak
+                        bidak_player2_Y = 4.5 - 0.2;  // Menambahkan offset ke atas untuk Player 2
+                    }
                 }
+
                 else if (jumlahlemparan2 <= 36) {  // Naik pada kolom 6 (31-36)
-                    bidak_player2_X = 6.5 - (jumlahlemparan2 - 30);  // Geser ke kiri
-                    bidak_player2_Y = 5.5 - 0.2;  // Menambahkan offset ke bawah
+                    // Cek jika mendarat di kotak 31
+                    if (jumlahlemparan2 == 31) {
+                        jumlahlemparan2 = 36;  // Langsung pindah ke kotak 36
+                        cout << "Player 2 melompat ke kotak 36!" << endl;
+                        // Posisikan di kotak 36
+                        bidak_player2_X = 6.5 - (36 - 30);  // 6.5 - 6 = 0.5 (paling kiri kolom 6)
+                        bidak_player2_Y = 5.5 - 0.2;  // Baris paling atas
+                    }
+                    else {
+                        // Gerakan normal
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 30);  // Geser ke kiri
+                        bidak_player2_Y = 5.5 - 0.2;  // Menambahkan offset ke bawah
+                    }
                 }
                 else if (jumlahlemparan2 <= 42) {  // Gerakan ke kanan (25-30)
                     bidak_player2_X = (jumlahlemparan2 - 37) + 0.5;  // Posisikan di tengah kotak
@@ -3035,8 +2537,25 @@ void input(unsigned char key, int x, int y) {
                     bidak_player2_Y = 8.5 - 0.2;  // Menambahkan offset ke bawah
                 }
                 else if (jumlahlemparan2 <= 60) {  // Naik pada kolom 6 (55-60)
-                    bidak_player2_X = 6.5 - (jumlahlemparan2 - 54);  // Geser ke kiri
-                    bidak_player2_Y = 9.5 - 0.2;  // Menambahkan offset ke bawah
+                    if (jumlahlemparan2 == 58) {
+                        jumlahlemparan2 = 80;  // Langsung pindah ke kotak 80
+                        cout << "Player 2 naik cepat ke kotak 80!" << endl;
+                        // Posisikan di kotak 80 (perlu menyesuaikan rumus koordinat untuk kotak 80)
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 78);  // Geser ke kiri
+                        bidak_player2_Y = 13.5 - 0.2;  // Menambahkan offset ke atas
+                    }
+                    // Cek jika mendarat di kotak 59
+                    else if (jumlahlemparan2 == 59) {
+                        jumlahlemparan2 = 40;  // Langsung pindah ke kotak 40
+                        cout << "Player 2 turun ke kotak 40!" << endl;
+                        // Posisikan di kotak 40 (perlu menyesuaikan rumus koordinat untuk kotak 40)
+                        bidak_player2_X = (jumlahlemparan2 - 37) + 0.5;  // Geser ke kiri
+                        bidak_player2_Y = 6.5 - 0.2;  // Menambahkan offset ke bawah
+                    }else {
+                        // Gerakan normal untuk 55-57, 59-60
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 54);  // Geser ke kiri
+                        bidak_player2_Y = 9.5 - 0.2;  // Menambahkan offset ke atas
+                    }
                 }
                 else if (jumlahlemparan2 <= 66) {  // Gerakan ke kanan (61-66)
                     bidak_player2_X = (jumlahlemparan2 - 61) + 0.5;  // Posisikan di tengah kotak
@@ -3050,9 +2569,19 @@ void input(unsigned char key, int x, int y) {
                     bidak_player2_X = (jumlahlemparan2 - 73) + 0.5;  // Posisikan di tengah kotak
                     bidak_player2_Y = 12.5 - 0.2;  // Menambahkan offset ke bawah
                 }
-                else if (jumlahlemparan2 <= 83) {  // Naik pada kolom 6 (79-84)
-                    bidak_player2_X = 6.5 - (jumlahlemparan2 - 78);  // Geser ke kiri
-                    bidak_player2_Y = 13.5 - 0.2;  // Menambahkan offset ke bawah
+                else if (jumlahlemparan2 <= 83) {  // Naik pada kolom 6 (79-83)
+                    // Cek jika mendarat di kotak 83
+                    if (jumlahlemparan2 == 83) {
+                        jumlahlemparan2 = 55;  // Langsung pindah ke kotak 55
+                        cout << "Player 2 turun ke kotak 55!" << endl;
+                        // Posisikan di kotak 55
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 54);  // Geser ke kiri
+                        bidak_player2_Y = 9.5 - 0.2;  // Menambahkan offset ke atas
+                    } else {
+                        // Gerakan normal untuk 79-82
+                        bidak_player2_X = 6.5 - (jumlahlemparan2 - 78);  // Geser ke kiri
+                        bidak_player2_Y = 13.5 - 0.2;  // Menambahkan offset ke bawah
+                    }
                 }
                 else if (jumlahlemparan2 == 84) {  // Naik pada kolom 6 (79-84)
                     bidak_player2_X = 0.5;
