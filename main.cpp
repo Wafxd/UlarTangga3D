@@ -618,9 +618,6 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
 }
 
 
-
-
-
 void drawPlayer1 (float x , float y){
     glColor3f(1,1,0);
     glTranslatef(x,y,0.3f);
