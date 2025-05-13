@@ -706,168 +706,544 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     glVertex3f(x + 1, y, z - 1);
     glVertex3f(x, y, z - 1);
     glEnd();
+
+    // MENGGAMBAR TANGGA 3D
+    glPushMatrix();
+    glColor3f(0.56f, 0.435f, 0.0f); // Warna seperti pada tangga 2D
+
+    for (float i = 0.4 + 0.4; i < 3.6; i += 0.4) {
+        // Depan
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, 1);
+        glVertex3f(2.2, i, 0.5);
+        glVertex3f(3.2 - 0.4, i, 0.5);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.5);
+        glVertex3f(2.2, i + 0.1, 0.5);
+        glEnd();
+
+        // Belakang
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, -1);
+        glVertex3f(2.2, i, 0.3);
+        glVertex3f(3.2 - 0.4, i, 0.3);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.3);
+        glVertex3f(2.2, i + 0.1, 0.3);
+        glEnd();
+
+        // Kiri
+        glBegin(GL_POLYGON);
+        glNormal3f(-1, 0, 0);
+        glVertex3f(2.2, i, 0.5);
+        glVertex3f(2.2, i, 0.3);
+        glVertex3f(2.2, i + 0.1, 0.3);
+        glVertex3f(2.2, i + 0.1, 0.5);
+        glEnd();
+
+        // Kanan
+        glBegin(GL_POLYGON);
+        glNormal3f(1, 0, 0);
+        glVertex3f(3.2 - 0.4, i, 0.5);
+        glVertex3f(3.2 - 0.4, i, 0.3);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.3);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.5);
+        glEnd();
+
+        // Atas
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 1, 0);
+        glVertex3f(2.2, i + 0.1, 0.5);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.5);
+        glVertex3f(3.2 - 0.4, i + 0.1, 0.3);
+        glVertex3f(2.2, i + 0.1, 0.3);
+        glEnd();
+
+        // Bawah
+        glBegin(GL_POLYGON);
+        glNormal3f(0, -1, 0);
+        glVertex3f(2.2, i, 0.5);
+        glVertex3f(3.2 - 0.4, i, 0.5);
+        glVertex3f(3.2 - 0.4, i, 0.3);
+        glVertex3f(2.2, i, 0.3);
+        glEnd();
+    }
+
+    // Gagang kiri
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(2.2, 0.4, 0.5);
+    glVertex3f(2.2 + 0.1, 0.4, 0.5);
+    glVertex3f(2.2 + 0.1, 3.6, 0.5);
+    glVertex3f(2.2, 3.6, 0.5);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(2.2, 0.4, 0.3);
+    glVertex3f(2.2 + 0.1, 0.4, 0.3);
+    glVertex3f(2.2 + 0.1, 3.6, 0.3);
+    glVertex3f(2.2, 3.6, 0.3);
+    glEnd();
+
+    // Kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(2.2, 0.4, 0.5);
+    glVertex3f(2.2, 0.4, 0.3);
+    glVertex3f(2.2, 3.6, 0.3);
+    glVertex3f(2.2, 3.6, 0.5);
+    glEnd();
+
+    // Kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(2.2 + 0.1, 0.4, 0.5);
+    glVertex3f(2.2 + 0.1, 0.4, 0.3);
+    glVertex3f(2.2 + 0.1, 3.6, 0.3);
+    glVertex3f(2.2 + 0.1, 3.6, 0.5);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(2.2, 3.6, 0.5);
+    glVertex3f(2.2 + 0.1, 3.6, 0.5);
+    glVertex3f(2.2 + 0.1, 3.6, 0.3);
+    glVertex3f(2.2, 3.6, 0.3);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(2.2, 0.4, 0.5);
+    glVertex3f(2.2 + 0.1, 0.4, 0.5);
+    glVertex3f(2.2 + 0.1, 0.4, 0.3);
+    glVertex3f(2.2, 0.4, 0.3);
+    glEnd();
+
+    // Gagang kanan
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(2.7, 0.4, 0.5);
+    glVertex3f(2.8, 0.4, 0.5);
+    glVertex3f(2.8, 3.6, 0.5);
+    glVertex3f(2.7, 3.6, 0.5);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(2.7, 0.4, 0.3);
+    glVertex3f(2.8, 0.4, 0.3);
+    glVertex3f(2.8, 3.6, 0.3);
+    glVertex3f(2.7, 3.6, 0.3);
+    glEnd();
+
+    // Kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(2.7, 0.4, 0.5);
+    glVertex3f(2.7, 0.4, 0.3);
+    glVertex3f(2.7, 3.6, 0.3);
+    glVertex3f(2.7, 3.6, 0.5);
+    glEnd();
+
+    // Kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(2.8, 0.4, 0.5);
+    glVertex3f(2.8, 0.4, 0.3);
+    glVertex3f(2.8, 3.6, 0.3);
+    glVertex3f(2.8, 3.6, 0.5);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(2.7, 3.6, 0.5);
+    glVertex3f(2.8, 3.6, 0.5);
+    glVertex3f(2.8, 3.6, 0.3);
+    glVertex3f(2.7, 3.6, 0.3);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(2.7, 0.4, 0.5);
+    glVertex3f(2.8, 0.4, 0.5);
+    glVertex3f(2.8, 0.4, 0.3);
+    glVertex3f(2.7, 0.4, 0.3);
+    glEnd();
+
+    glPopMatrix();
+
+    // MENGGAMBAR TANGGA 3D HORIZONTAL/MIRING
+    glPushMatrix();
+    glColor3f(0.56f, 0.435f, 0.0f); // Warna seperti pada tangga 2D
+
+    // Langkah-langkah tangga
+    for (float i = 0.7; i < 5.4; i += 0.4) {
+        // Depan (sisi atas)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, 1);
+        glVertex3f(i, 5.7, 0.5);
+        glVertex3f(i, 5.7 - 0.4, 0.5);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.5);
+        glVertex3f(i + 0.1, 5.7, 0.5);
+        glEnd();
+
+        // Belakang (sisi bawah)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, -1);
+        glVertex3f(i, 5.7, 0.3);
+        glVertex3f(i, 5.7 - 0.4, 0.3);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.3);
+        glVertex3f(i + 0.1, 5.7, 0.3);
+        glEnd();
+
+        // Sisi kiri
+        glBegin(GL_POLYGON);
+        glNormal3f(-1, 0, 0);
+        glVertex3f(i, 5.7, 0.5);
+        glVertex3f(i, 5.7, 0.3);
+        glVertex3f(i, 5.7 - 0.4, 0.3);
+        glVertex3f(i, 5.7 - 0.4, 0.5);
+        glEnd();
+
+        // Sisi kanan
+        glBegin(GL_POLYGON);
+        glNormal3f(1, 0, 0);
+        glVertex3f(i + 0.1, 5.7, 0.5);
+        glVertex3f(i + 0.1, 5.7, 0.3);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.3);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.5);
+        glEnd();
+
+        // Atas (permukaan langkah)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 1, 0);
+        glVertex3f(i, 5.7, 0.5);
+        glVertex3f(i + 0.1, 5.7, 0.5);
+        glVertex3f(i + 0.1, 5.7, 0.3);
+        glVertex3f(i, 5.7, 0.3);
+        glEnd();
+
+        // Bawah (sisi bawah langkah)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, -1, 0);
+        glVertex3f(i, 5.7 - 0.4, 0.5);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.5);
+        glVertex3f(i + 0.1, 5.7 - 0.4, 0.3);
+        glVertex3f(i, 5.7 - 0.4, 0.3);
+        glEnd();
+    }
+
+    // Papan atas (handrail atas)
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(0.4, 5.7, 0.5);
+    glVertex3f(5.4, 5.7, 0.5);
+    glVertex3f(5.4, 5.7 + 0.1, 0.5);
+    glVertex3f(0.4, 5.7 + 0.1, 0.5);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(0.4, 5.7, 0.3);
+    glVertex3f(5.4, 5.7, 0.3);
+    glVertex3f(5.4, 5.7 + 0.1, 0.3);
+    glVertex3f(0.4, 5.7 + 0.1, 0.3);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(0.4, 5.7 + 0.1, 0.5);
+    glVertex3f(5.4, 5.7 + 0.1, 0.5);
+    glVertex3f(5.4, 5.7 + 0.1, 0.3);
+    glVertex3f(0.4, 5.7 + 0.1, 0.3);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(0.4, 5.7, 0.5);
+    glVertex3f(5.4, 5.7, 0.5);
+    glVertex3f(5.4, 5.7, 0.3);
+    glVertex3f(0.4, 5.7, 0.3);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(0.4, 5.7, 0.5);
+    glVertex3f(0.4, 5.7, 0.3);
+    glVertex3f(0.4, 5.7 + 0.1, 0.3);
+    glVertex3f(0.4, 5.7 + 0.1, 0.5);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(5.4, 5.7, 0.5);
+    glVertex3f(5.4, 5.7, 0.3);
+    glVertex3f(5.4, 5.7 + 0.1, 0.3);
+    glVertex3f(5.4, 5.7 + 0.1, 0.5);
+    glEnd();
+
+    // Papan bawah (handrail bawah)
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(0.4, 5.7 - 0.5, 0.5);
+    glVertex3f(5.4, 5.7 - 0.5, 0.5);
+    glVertex3f(5.4, 5.7 - 0.4, 0.5);
+    glVertex3f(0.4, 5.7 - 0.4, 0.5);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(0.4, 5.7 - 0.5, 0.3);
+    glVertex3f(5.4, 5.7 - 0.5, 0.3);
+    glVertex3f(5.4, 5.7 - 0.4, 0.3);
+    glVertex3f(0.4, 5.7 - 0.4, 0.3);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(0.4, 5.7 - 0.4, 0.5);
+    glVertex3f(5.4, 5.7 - 0.4, 0.5);
+    glVertex3f(5.4, 5.7 - 0.4, 0.3);
+    glVertex3f(0.4, 5.7 - 0.4, 0.3);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(0.4, 5.7 - 0.5, 0.5);
+    glVertex3f(5.4, 5.7 - 0.5, 0.5);
+    glVertex3f(5.4, 5.7 - 0.5, 0.3);
+    glVertex3f(0.4, 5.7 - 0.5, 0.3);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(0.4, 5.7 - 0.5, 0.5);
+    glVertex3f(0.4, 5.7 - 0.5, 0.3);
+    glVertex3f(0.4, 5.7 - 0.4, 0.3);
+    glVertex3f(0.4, 5.7 - 0.4, 0.5);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(5.4, 5.7 - 0.5, 0.5);
+    glVertex3f(5.4, 5.7 - 0.5, 0.3);
+    glVertex3f(5.4, 5.7 - 0.4, 0.3);
+    glVertex3f(5.4, 5.7 - 0.4, 0.5);
+    glEnd();
+
+    glPopMatrix();
+
+
+    // MENGGAMBAR TANGGA 3D DIAGONAL
+    glPushMatrix();
+    glColor3f(0.56f, 0.435f, 0.0f); // Warna tangga yang sama dengan sebelumnya
+
+    // Koordinat anak tangga untuk perulangan (5 langkah)
+    float stepCoords[5][4][2] = {
+        {{2.5f, 9.7f}, {2.9f, 9.4f}, {3.0f, 9.5f}, {2.6f, 9.8f}},  // Anak Tangga 1
+        {{2.9f, 10.5f}, {3.3f, 10.2f}, {3.4f, 10.3f}, {3.0f, 10.6f}}, // Anak Tangga 2
+        {{3.3f, 11.3f}, {3.7f, 11.0f}, {3.8f, 11.1f}, {3.4f, 11.4f}}, // Anak Tangga 3
+        {{3.7f, 12.1f}, {4.1f, 11.8f}, {4.2f, 11.9f}, {3.8f, 12.2f}}, // Anak Tangga 4
+        {{4.1f, 12.9f}, {4.5f, 12.6f}, {4.6f, 12.7f}, {4.2f, 13.0f}}, // Anak Tangga 5
+    };
+
+    // Ketebalan tangga dalam 3D
+    float thickness = 0.2f;
+    float frontZ = 0.5f;
+    float backZ = frontZ - thickness;
+
+    // Loop untuk menggambar anak tangga 3D
+    for (int i = 0; i < 5; i++) {
+        // Atas (permukaan tangga)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, 1);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], frontZ);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], frontZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], frontZ);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], frontZ);
+        glEnd();
+
+        // Bawah
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 0, -1);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], backZ);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], backZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], backZ);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], backZ);
+        glEnd();
+
+        // Sisi depan (vertical face)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, -1, 0);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], frontZ);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], backZ);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], backZ);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], frontZ);
+        glEnd();
+
+        // Sisi belakang (vertical face)
+        glBegin(GL_POLYGON);
+        glNormal3f(0, 1, 0);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], frontZ);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], backZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], backZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], frontZ);
+        glEnd();
+
+        // Sisi kiri (vertical face)
+        glBegin(GL_POLYGON);
+        glNormal3f(-1, 0, 0);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], frontZ);
+        glVertex3f(stepCoords[i][0][0], stepCoords[i][0][1], backZ);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], backZ);
+        glVertex3f(stepCoords[i][1][0], stepCoords[i][1][1], frontZ);
+        glEnd();
+
+        // Sisi kanan (vertical face)
+        glBegin(GL_POLYGON);
+        glNormal3f(1, 0, 0);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], frontZ);
+        glVertex3f(stepCoords[i][3][0], stepCoords[i][3][1], backZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], backZ);
+        glVertex3f(stepCoords[i][2][0], stepCoords[i][2][1], frontZ);
+        glEnd();
+    }
+
+    // Pegangan Kiri (Sesuai sudut diagonal)
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(2.4f, 9.5f, frontZ);
+    glVertex3f(2.5f, 9.4f, frontZ);
+    glVertex3f(4.5f, 13.4f, frontZ);
+    glVertex3f(4.4f, 13.5f, frontZ);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(2.4f, 9.5f, backZ);
+    glVertex3f(2.5f, 9.4f, backZ);
+    glVertex3f(4.5f, 13.4f, backZ);
+    glVertex3f(4.4f, 13.5f, backZ);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(2.5f, 9.4f, frontZ);
+    glVertex3f(4.5f, 13.4f, frontZ);
+    glVertex3f(4.5f, 13.4f, backZ);
+    glVertex3f(2.5f, 9.4f, backZ);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(2.4f, 9.5f, frontZ);
+    glVertex3f(4.4f, 13.5f, frontZ);
+    glVertex3f(4.4f, 13.5f, backZ);
+    glVertex3f(2.4f, 9.5f, backZ);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(2.4f, 9.5f, frontZ);
+    glVertex3f(2.4f, 9.5f, backZ);
+    glVertex3f(2.5f, 9.4f, backZ);
+    glVertex3f(2.5f, 9.4f, frontZ);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(4.4f, 13.5f, frontZ);
+    glVertex3f(4.4f, 13.5f, backZ);
+    glVertex3f(4.5f, 13.4f, backZ);
+    glVertex3f(4.5f, 13.4f, frontZ);
+    glEnd();
+
+    // Pegangan Kanan (Sesuai sudut diagonal)
+    // Depan
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, 1);
+    glVertex3f(2.8f, 9.2f, frontZ);
+    glVertex3f(2.9f, 9.1f, frontZ);
+    glVertex3f(4.9f, 13.1f, frontZ);
+    glVertex3f(4.8f, 13.2f, frontZ);
+    glEnd();
+
+    // Belakang
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 0, -1);
+    glVertex3f(2.8f, 9.2f, backZ);
+    glVertex3f(2.9f, 9.1f, backZ);
+    glVertex3f(4.9f, 13.1f, backZ);
+    glVertex3f(4.8f, 13.2f, backZ);
+    glEnd();
+
+    // Atas
+    glBegin(GL_POLYGON);
+    glNormal3f(0, 1, 0);
+    glVertex3f(2.9f, 9.1f, frontZ);
+    glVertex3f(4.9f, 13.1f, frontZ);
+    glVertex3f(4.9f, 13.1f, backZ);
+    glVertex3f(2.9f, 9.1f, backZ);
+    glEnd();
+
+    // Bawah
+    glBegin(GL_POLYGON);
+    glNormal3f(0, -1, 0);
+    glVertex3f(2.8f, 9.2f, frontZ);
+    glVertex3f(4.8f, 13.2f, frontZ);
+    glVertex3f(4.8f, 13.2f, backZ);
+    glVertex3f(2.8f, 9.2f, backZ);
+    glEnd();
+
+    // Sisi kiri
+    glBegin(GL_POLYGON);
+    glNormal3f(-1, 0, 0);
+    glVertex3f(2.8f, 9.2f, frontZ);
+    glVertex3f(2.8f, 9.2f, backZ);
+    glVertex3f(2.9f, 9.1f, backZ);
+    glVertex3f(2.9f, 9.1f, frontZ);
+    glEnd();
+
+    // Sisi kanan
+    glBegin(GL_POLYGON);
+    glNormal3f(1, 0, 0);
+    glVertex3f(4.8f, 13.2f, frontZ);
+    glVertex3f(4.8f, 13.2f, backZ);
+    glVertex3f(4.9f, 13.1f, backZ);
+    glVertex3f(4.9f, 13.1f, frontZ);
+    glEnd();
+
+    glPopMatrix();
 }
 
 
 
 void drawKotak(bool warna_transparan) {
-
-    // MENGGAMBAR TANGGA 1
-    glPushMatrix();
-    glColor3f(1.0f, 0.0f, 0.0f);
-    for (float i = 0.4; i < 3.6; i += 0.4) {
-        // depan
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, 1); // Normal untuk semua sisi
-        glVertex3f(2.2, i, 1.0);
-        glVertex3f(2.8, i, 1.0);
-        glVertex3f(2.8, i + 0.1, 1.0);
-        glVertex3f(2.2, i + 0.1, 1.0);
-        glEnd();
-        // belakang
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 0, -1); // Normal untuk semua sisi
-        glVertex3f(2.2, i, 0.7);
-        glVertex3f(2.8, i, 0.7);
-        glVertex3f(2.8, i + 0.1, 0.7);
-        glVertex3f(2.2, i + 0.1, 0.7);
-        glEnd();
-        // kiri
-        glBegin(GL_POLYGON);
-        glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(2.2, i, 1.0);
-        glVertex3f(2.2, i, 0.7);
-        glVertex3f(2.2, i + 0.1, 0.7);
-        glVertex3f(2.2, i + 0.1, 1.0);
-        glEnd();
-        // kanan
-        glBegin(GL_POLYGON);
-        glNormal3f(1, 0, 0); // Normal untuk semua sisi
-        glVertex3f(2.8, i, 1.0);
-        glVertex3f(2.8, i, 0.7);
-        glVertex3f(2.8, i + 0.1, 0.7);
-        glVertex3f(2.8, i + 0.1, 1.0);
-        glEnd();
-        // atas
-        glBegin(GL_POLYGON);
-        glNormal3f(0, 1, 0); // Normal untuk semua sisi
-        glVertex3f(2.2, i + 0.1, 1.0);
-        glVertex3f(2.8, i + 0.1, 1.0);
-        glVertex3f(2.8, i + 0.1, 0.7);
-        glVertex3f(2.2, i + 0.1, 0.7);
-        glEnd();
-        // bawah
-        glBegin(GL_POLYGON);
-        glNormal3f(0, -1, 0); // Normal untuk semua sisi
-        glVertex3f(2.2, i, 1.0);
-        glVertex3f(2.8, i, 1.0);
-        glVertex3f(2.8, i, 0.7);
-        glVertex3f(2.2, i, 0.7);
-        glEnd();
-    }
-
-    // gagang kiri
-    // depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(2.2, 0.4, 1.0);
-    glVertex3f(2.3, 0.4, 1.0);
-    glVertex3f(2.3, 3.6, 1.0);
-    glVertex3f(2.2, 3.6, 1.0);
-    glEnd();
-    // belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(2.2, 0.4, 0.7);
-    glVertex3f(2.3, 0.4, 0.7);
-    glVertex3f(2.3, 3.6, 0.7);
-    glVertex3f(2.2, 3.6, 0.7);
-    glEnd();
-    // kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(2.2, 0.4, 1.0);
-    glVertex3f(2.2, 0.4, 0.7);
-    glVertex3f(2.2, 3.6, 0.7);
-    glVertex3f(2.2, 3.6, 1.0);
-    glEnd();
-    // kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(2.3, 0.4, 1.0);
-    glVertex3f(2.3, 0.4, 0.7);
-    glVertex3f(2.3, 3.6, 0.7);
-    glVertex3f(2.3, 3.6, 1.0);
-    glEnd();
-    // atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(2.2, 3.6, 1.0);
-    glVertex3f(2.3, 3.6, 1.0);
-    glVertex3f(2.3, 3.6, 0.7);
-    glVertex3f(2.2, 3.6, 0.7);
-    glEnd();
-    // bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(2.2, 0.4, 1.0);
-    glVertex3f(2.3, 0.4, 1.0);
-    glVertex3f(2.3, 0.4, 0.7);
-    glVertex3f(2.2, 0.4, 0.7);
-    glEnd();
-
-    // gagang kanan
-    // depan
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, 1); // Normal untuk semua sisi
-    glVertex3f(2.7, 0.4, 1.0);
-    glVertex3f(2.8, 0.4, 1.0);
-    glVertex3f(2.8, 3.6, 1.0);
-    glVertex3f(2.7, 3.6, 1.0);
-    glEnd();
-    // belakang
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 0, -1); // Normal untuk semua sisi
-    glVertex3f(2.7, 0.4, 0.7);
-    glVertex3f(2.8, 0.4, 0.7);
-    glVertex3f(2.8, 3.6, 0.7);
-    glVertex3f(2.7, 3.6, 0.7);
-    glEnd();
-    // kiri
-    glBegin(GL_POLYGON);
-    glNormal3f(-1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(2.7, 0.4, 1.0);
-    glVertex3f(2.7, 0.4, 0.7);
-    glVertex3f(2.7, 3.6, 0.7);
-    glVertex3f(2.7, 3.6, 1.0);
-    glEnd();
-    // kanan
-    glBegin(GL_POLYGON);
-    glNormal3f(1, 0, 0); // Normal untuk semua sisi
-    glVertex3f(2.8, 0.4, 1.0);
-    glVertex3f(2.8, 0.4, 0.7);
-    glVertex3f(2.8, 3.6, 0.7);
-    glVertex3f(2.8, 3.6, 1.0);
-    glEnd();
-    // atas
-    glBegin(GL_POLYGON);
-    glNormal3f(0, 1, 0); // Normal untuk semua sisi
-    glVertex3f(2.7, 3.6, 1.0);
-    glVertex3f(2.8, 3.6, 1.0);
-    glVertex3f(2.8, 3.6, 0.7);
-    glVertex3f(2.7, 3.6, 0.7);
-    glEnd();
-    // bawah
-    glBegin(GL_POLYGON);
-    glNormal3f(0, -1, 0); // Normal untuk semua sisi
-    glVertex3f(2.7, 0.4, 1.0);
-    glVertex3f(2.8, 0.4, 1.0);
-    glVertex3f(2.8, 0.4, 0.7);
-    glVertex3f(2.7, 0.4, 0.7);
-    glEnd();
-
-    glPopMatrix();
-
 
     // MENGGAMBAR TANGGA 2
     glPushMatrix();
@@ -2292,19 +2668,6 @@ void myinit() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // Sesuaikan proyeksi ortogonal untuk papan dengan 6 kolom dan 14 baris
-    glOrtho(-3, 9, -3, 15, -15, 30);  // Sesuaikan batas proyeksi sesuai kebutuhan
-
-    // Proyeksi ini membuat bidang tampilan 12 unit panjang (9 - (-3)) dan 18 unit tinggi (15 - (-3))
-    // Batas z (-15, 30) memberikan jarak kedalaman yang cukup untuk objek yang ingin ditampilkan
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    // Menambahkan translasi untuk memusatkan objek (papan ular tangga)
-    // Pusatkan papan yang berada di range X antara -3 dan 9, dan Y antara -3 dan 15
-    glTranslatef((9 + 3) / 2.0f, (15 + 3) / 2.0f, 0);  // Menggeser objek ke tengah
-
     // Setup pencahayaan dan material
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -2316,28 +2679,25 @@ void myinit() {
     GLfloat specular_light[] = { 0.0, 1.0, 0.0, 1.0 };
     GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
 
-    // Mengatur pencahayaan
     glLightfv(GL_LIGHT0, GL_POSITION, light_position_diff);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse_light);
     glLightfv(GL_LIGHT1, GL_POSITION, light_position_spec);
     glLightfv(GL_LIGHT1, GL_SPECULAR, specular_light);
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient_light);
 
-    // Mengaktifkan pencahayaan
     glEnable(GL_LIGHTING);
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_DEPTH_TEST);
-
-    // Model shading
     glShadeModel(GL_SMOOTH);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
 
-    // Posisi objek
+    // Posisi awal objek
     pos[0] = 0.0;
     pos[1] = 0.0;
     pos[2] = 0.0;
 }
+
 
 
 
@@ -2373,16 +2733,46 @@ void arrowKey(int key, int x, int y){
     }
 }
 
-void reshape(int w, int h){
-    if (viewMode==2){
-        glViewport(0,0, (GLsizei) w, (GLsizei) h);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        //glOrtho(-5,5,-5,5,-5,5);
-        gluPerspective(65.0, (GLfloat) w / (GLfloat) h, 1.0, 20.0);
-        glMatrixMode(GL_MODELVIEW);
+void reshape(int w, int h) {
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // Ukuran papan 6 kolom x 14 baris
+    // Kita ingin papan terlihat penuh dengan margin yang cukup
+    float boardWidth = 6.0f;
+    float boardHeight = 14.0f;
+
+    // Hitung aspect ratio
+    float aspect = (float)w / (float)h;
+
+    // Jika window lebih lebar dari tinggi
+    if (aspect > (boardWidth / boardHeight)) {
+        // Sesuaikan berdasarkan height
+        float newWidth = boardHeight * aspect;
+        glOrtho(-(newWidth - boardWidth)/2, newWidth - (newWidth - boardWidth)/2,
+                -1.0f, boardHeight + 1.0f,
+                -15.0f, 30.0f);
+    } else {
+        // Sesuaikan berdasarkan width
+        float newHeight = boardWidth / aspect;
+        glOrtho(-1.0f, boardWidth + 1.0f,
+                -(newHeight - boardHeight)/2, newHeight - (newHeight - boardHeight)/2,
+                -15.0f, 30.0f);
     }
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // Translasi untuk memusatkan papan
+    // Karena kita sudah mengatur proyeksi dengan benar, translasi bisa di 0
+    // Tapi jika masih perlu penyesuaian, bisa ditambahkan:
+    glTranslatef(-boardWidth/2, -boardHeight/2, 0.0f);
 }
+
+
+
 
 void input(unsigned char key, int x, int y) {
     key = tolower(key); //Agar bisa menginput keyboard huruf besar dan kecil
