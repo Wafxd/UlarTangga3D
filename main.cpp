@@ -2024,7 +2024,13 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     drawSix(0, 10, 0.01, 0.2);
     drawSix(1, 10, 0.01, 0.2);
     drawSix(2, 10, 0.01, 0.2);
-    drawSix(3, 10, 0.01, 0.2);
+
+
+    drawFour(3, 10, 0.01, 0.2);
+
+    drawSix(2.8, 10, 0.01, 0.2);
+
+
     drawSix(4, 10, 0.01, 0.2);
     drawSix(5 - 0.05, 10, 0.01, 0.2);
     drawSix(4.8 - 0.05, 10, 0.01, 0.2);
@@ -2219,38 +2225,7 @@ void reshape(int w, int h) {
 void input(unsigned char key, int x, int y) {
     key = tolower(key); //Agar bisa menginput keyboard huruf besar dan kecil
 
-    if (key=='1'){
-        if (amb == true){
-            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
-            amb = false;
-        }
-        else{
-            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
-            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
-            amb = true;
-        }
-    }
-    if (key=='2'){
-        if (diff == true){
-            glDisable(GL_LIGHT0);
-            diff = false;
-        }
-        else{
-            glEnable(GL_LIGHT0);
-            diff = true;
-        }
-    }
-    if (key=='3'){
-        if (spec == true){
-            glDisable(GL_LIGHT1);
-            spec = false;
-        }
-        else{
-            glEnable(GL_LIGHT1);
-            spec = true;
-        }
-    }
+
 
     if (viewMode == 1) { // Percabangan untuk rotasi papan permainan
         switch (key) {
@@ -2279,7 +2254,7 @@ void input(unsigned char key, int x, int y) {
     switch (key) {
         case 'v':
         // Mengatur mode tampilan
-        viewMode = (viewMode + 1) % 3;
+        viewMode = (viewMode + 1) % 2;  // Mengurangi jumlah mode tampilan menjadi 2
 
         if (viewMode == 1) {
             // Mengubah mode ke rotasi papan tanpa mereset rotasi
@@ -2293,17 +2268,6 @@ void input(unsigned char key, int x, int y) {
             }
             isRotated = true;
             warna_transparan = true; // Mengaktifkan transparansi 0.5
-
-        } else if (viewMode == 2) {
-            // Mengubah mode ke gluLookAt
-            // Simpan sudut rotasi terakhir jika dalam mode rotasi
-            if (isRotated) {
-                sudut_rotasi_terakhir_x = sudut_rotasi_X;
-                sudut_rotasi_terakhir_Y = sudut_rotasi_Y;
-                sudut_rotasi_terakhir_Z = sudut_rotasi_Z;
-            }
-            isRotated = false; // Menonaktifkan rotasi saat gluLookAt
-            warna_transparan = false; // Menonaktifkan warna transparan
 
         } else {
             // Mengubah mode ke tampilan default (viewMode == 0)
@@ -2321,6 +2285,7 @@ void input(unsigned char key, int x, int y) {
             // Nonaktifkan warna transparan jika perlu
             warna_transparan = false;
         }
+
 
         break;
 
