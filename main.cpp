@@ -82,19 +82,11 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
 
-    // Bagian depan
+    // Set color (orange)
     glColor3f(1.0f, 0.5f, 0.0f);
 
-    // Bagian kiri atas (vertical)
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-    glEnd();
-
-    // Bagian kanan atas (horizontal)
+    // Front faces
+    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, -1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
@@ -103,7 +95,16 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
     glEnd();
 
-    // Bagian kiri vertikal tengah
+    // Bottom horizontal bar
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0, 0.0, -1.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
+    glEnd();
+
+    // Left vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, -1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
@@ -112,23 +113,17 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
     glEnd();
 
-    // Bagian kanan vertikal tengah
+    // Right vertical bar
     glBegin(GL_POLYGON);
+    glNormal3f(0.0, 0.0, -1.0);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
     glEnd();
 
-    // Bagian belakang (mirip bagian depan)
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, 1.0);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
-    glEnd();
-
+    // Back faces
+    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
@@ -137,6 +132,16 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
     glEnd();
 
+    // Bottom horizontal bar
+    glBegin(GL_POLYGON);
+    glNormal3f(0.0, 0.0, 1.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
+    glEnd();
+
+    // Left vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
@@ -145,6 +150,7 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
     glEnd();
 
+    // Right vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
@@ -153,35 +159,91 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
     glEnd();
 
-    // Menghubungkan bagian depan dan belakang untuk membuat sisi 3D
+    // Connecting sides (3D edges)
     glBegin(GL_QUADS);
-    // Sisi 1
-    glNormal3f(1.0, 0.0, 0.0); // Normal untuk sisi 1
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
+    // Top face
+    glNormal3f(0.0, 1.0, 0.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
 
-    // Sisi 2
-    glNormal3f(-1.0, 0.0, 0.0); // Normal untuk sisi 2v
+    // Right top edge
+    glNormal3f(1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, backZ);
+
+    // Right main vertical
+    glNormal3f(1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
+
+    // Right bottom edge
+    glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
 
-    // Sisi 3
-    glNormal3f(0.0, 0.0, -1.0); // Normal untuk sisi 3
+    // Bottom face
+    glNormal3f(0.0, -1.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-
-    // Sisi 4
-    glNormal3f(0.0, 0.0, 1.0); // Normal untuk sisi 4
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
+
+    // Left bottom edge
+    glNormal3f(-1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
+
+    // Left main vertical
+    glNormal3f(-1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
+
+    // Left top edge
+    glNormal3f(-1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
+
+    // Inner right vertical
+    glNormal3f(-1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
+
+    // Inner left vertical
+    glNormal3f(1.0, 0.0, 0.0);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.65f, backZ);
+
+    // Inner top horizontal
+    glNormal3f(0.0, 1.0, 0.0);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, backZ);
+
+    // Inner bottom horizontal
+    glNormal3f(0.0, -1.0, 0.0);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.65f, backZ);
 
     glEnd();
 }
@@ -367,7 +429,9 @@ void drawSix(float x, float y, float z, float depth) {
 
     // Warna hitam untuk angka
     glColor3f(1.0f, 0.5f, 0.0f);
+
     // Bagian depan
+    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.9f, frontZ);
@@ -376,6 +440,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.75f, y + 0.9f, frontZ);
     glEnd();
 
+    // Left vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.75f, y + 0.9f, frontZ);
@@ -384,6 +449,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.9f, frontZ);
     glEnd();
 
+    // Bottom right corner
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.8f, y + 0.6f, frontZ);
@@ -392,6 +458,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.65f, frontZ);
     glEnd();
 
+    // Middle vertical right
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.75f, frontZ);
@@ -400,6 +467,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.85f, y + 0.75f, frontZ);
     glEnd();
 
+    // Middle horizontal
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.75f, frontZ);
@@ -409,6 +477,7 @@ void drawSix(float x, float y, float z, float depth) {
     glEnd();
 
     // Bagian belakang
+    // Top horizontal bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.9f, backZ);
@@ -417,6 +486,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.75f, y + 0.9f, backZ);
     glEnd();
 
+    // Left vertical bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.75f, y + 0.9f, backZ);
@@ -425,6 +495,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.9f, backZ);
     glEnd();
 
+    // Bottom right corner (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.8f, y + 0.6f, backZ);
@@ -433,6 +504,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.65f, backZ);
     glEnd();
 
+    // Middle vertical right (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.75f, backZ);
@@ -441,6 +513,7 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.85f, y + 0.75f, backZ);
     glEnd();
 
+    // Middle horizontal (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.75f, backZ);
@@ -451,50 +524,105 @@ void drawSix(float x, float y, float z, float depth) {
 
     // Menghubungkan depan dan belakang untuk membuat sisi 3D
     glBegin(GL_QUADS);
-    // Sisi 1
-    glNormal3f(1, 0, 0); // Normal untuk sisi 1
+    // Top face
+    glNormal3f(0, 1, 0);
+    glVertex3f(x + 0.9f, y + 0.9f, frontZ);
+    glVertex3f(x + 0.75f, y + 0.9f, frontZ);
+    glVertex3f(x + 0.75f, y + 0.9f, backZ);
+    glVertex3f(x + 0.9f, y + 0.9f, backZ);
+
+    // Top right edge
+    glNormal3f(1, 0, 0);
     glVertex3f(x + 0.9f, y + 0.9f, frontZ);
     glVertex3f(x + 0.9f, y + 0.85f, frontZ);
     glVertex3f(x + 0.9f, y + 0.85f, backZ);
     glVertex3f(x + 0.9f, y + 0.9f, backZ);
 
-    // Sisi 2
-    glNormal3f(-1, 0, 0); // Normal untuk sisi 2
+    // Top left edge
+    glNormal3f(-1, 0, 0);
+    glVertex3f(x + 0.75f, y + 0.9f, frontZ);
     glVertex3f(x + 0.75f, y + 0.85f, frontZ);
     glVertex3f(x + 0.75f, y + 0.85f, backZ);
     glVertex3f(x + 0.75f, y + 0.9f, backZ);
-    glVertex3f(x + 0.75f, y + 0.9f, frontZ);
 
-    // Sisi 3
-    glNormal3f(-1, 0, 0); // Normal untuk sisi 3
-    glVertex3f(x + 0.75f, y + 0.9f, frontZ);
-    glVertex3f(x + 0.75f, y + 0.9f, backZ);
-    glVertex3f(x + 0.75f, y + 0.6f, backZ);
-    glVertex3f(x + 0.75f, y + 0.6f, frontZ);
-
-    // Sisi 4
-    glNormal3f(0, 0, -1); // Normal untuk sisi 4
+    // Left face (full length)
+    glNormal3f(-1, 0, 0);
+    glVertex3f(x + 0.75f, y + 0.85f, frontZ);
     glVertex3f(x + 0.75f, y + 0.6f, frontZ);
     glVertex3f(x + 0.75f, y + 0.6f, backZ);
-    glVertex3f(x + 0.8f, y + 0.6f, backZ);
-    glVertex3f(x + 0.8f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.75f, y + 0.85f, backZ);
 
-    // Sisi 5
-    glNormal3f(0, 0, 1); // Normal untuk sisi 5
+    // Left inner face
+    glNormal3f(1, 0, 0);
     glVertex3f(x + 0.8f, y + 0.6f, frontZ);
-    glVertex3f(x + 0.8f, y + 0.6f, backZ);
-    glVertex3f(x + 0.8f, y + 0.9f, backZ);
-    glVertex3f(x + 0.8f, y + 0.9f, frontZ);
-
-    // Sisi 6
-    glNormal3f(0, 0, 1); // Normal untuk sisi 6
     glVertex3f(x + 0.8f, y + 0.9f, frontZ);
     glVertex3f(x + 0.8f, y + 0.9f, backZ);
-    glVertex3f(x + 0.9f, y + 0.9f, backZ);
-    glVertex3f(x + 0.9f, y + 0.9f, frontZ);
+    glVertex3f(x + 0.8f, y + 0.6f, backZ);
+
+    // Bottom face
+    glNormal3f(0, -1, 0);
+    glVertex3f(x + 0.75f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.8f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.8f, y + 0.6f, backZ);
+    glVertex3f(x + 0.75f, y + 0.6f, backZ);
+
+    // Bottom right extension
+    glNormal3f(0, -1, 0);
+    glVertex3f(x + 0.8f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.6f, backZ);
+    glVertex3f(x + 0.8f, y + 0.6f, backZ);
+
+    // Right bottom edge
+    glNormal3f(1, 0, 0);
+    glVertex3f(x + 0.9f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.65f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.65f, backZ);
+    glVertex3f(x + 0.9f, y + 0.6f, backZ);
+
+    // Right middle vertical
+    glNormal3f(1, 0, 0);
+    glVertex3f(x + 0.9f, y + 0.65f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, backZ);
+    glVertex3f(x + 0.9f, y + 0.65f, backZ);
+
+    // Inner right vertical
+    glNormal3f(-1, 0, 0);
+    glVertex3f(x + 0.85f, y + 0.6f, frontZ);
+    glVertex3f(x + 0.85f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.85f, y + 0.75f, backZ);
+    glVertex3f(x + 0.85f, y + 0.6f, backZ);
+
+    // Middle horizontal top edge
+    glNormal3f(0, 1, 0);
+    glVertex3f(x + 0.8f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, backZ);
+    glVertex3f(x + 0.8f, y + 0.75f, backZ);
+
+    // Middle horizontal bottom edge
+    glNormal3f(0, -1, 0);
+    glVertex3f(x + 0.8f, y + 0.7f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.7f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.7f, backZ);
+    glVertex3f(x + 0.8f, y + 0.7f, backZ);
+
+    // Middle vertical right edge
+    glNormal3f(1, 0, 0);
+    glVertex3f(x + 0.9f, y + 0.7f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.9f, y + 0.75f, backZ);
+    glVertex3f(x + 0.9f, y + 0.7f, backZ);
+
+    // Middle vertical left edge
+    glNormal3f(-1, 0, 0);
+    glVertex3f(x + 0.8f, y + 0.7f, frontZ);
+    glVertex3f(x + 0.8f, y + 0.75f, frontZ);
+    glVertex3f(x + 0.8f, y + 0.75f, backZ);
+    glVertex3f(x + 0.8f, y + 0.7f, backZ);
 
     glEnd();
-
 }
 
 
@@ -502,7 +630,11 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
 
-    // Bagian depan
+    // Set color (orange)
+    glColor3f(1.0f, 0.5f, 0.0f);
+
+    // Front faces
+    // Bottom horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
@@ -511,6 +643,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
     glEnd();
 
+    // Middle horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.72f, frontZ);
@@ -519,6 +652,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.78f, frontZ);
     glEnd();
 
+    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
@@ -527,6 +661,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
     glEnd();
 
+    // Right vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(xAtas + 0.85f, yBawah + 0.6f, frontZ);
@@ -535,6 +670,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.85f, yBawah + 0.9f, frontZ);
     glEnd();
 
+    // Top left corner
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.78f, frontZ);
@@ -543,7 +679,8 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
     glEnd();
 
-    // Bagian belakang
+    // Back faces (same as front but with backZ)
+    // Bottom horizontal bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
@@ -552,6 +689,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
     glEnd();
 
+    // Middle horizontal bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.72f, backZ);
@@ -560,6 +698,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.78f, backZ);
     glEnd();
 
+    // Top horizontal bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
@@ -568,6 +707,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
     glEnd();
 
+    // Right vertical bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(xAtas + 0.85f, yBawah + 0.6f, backZ);
@@ -576,6 +716,7 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.85f, yBawah + 0.9f, backZ);
     glEnd();
 
+    // Top left corner (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(xAtas + 0.7f, yBawah + 0.78f, backZ);
@@ -584,35 +725,84 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
     glEnd();
 
-    // Menghubungkan depan dan belakang untuk membuat sisi 3D
+    // Connecting sides (3D edges)
     glBegin(GL_QUADS);
-    // Sisi 1
-    glNormal3f(1, 0, 0); // Normal untuk sisi 1
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
-
-    // Sisi 2
-    glNormal3f(-1, 0, 0); // Normal untuk sisi 2
-    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, backZ);
-
-    // Sisi 3
-    glNormal3f(0, 0, -1); // Normal untuk sisi 3
+    // Bottom face
+    glNormal3f(0, -1, 0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-
-    // Sisi 4
-    glNormal3f(0, 0, 1); // Normal untuk sisi 4
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.6f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
+
+    // Bottom edge of right bar
+    glNormal3f(0, -1, 0);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, backZ);
+
+    // Right face (full height)
+    glNormal3f(1, 0, 0);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
+
+    // Inner right face
+    glNormal3f(-1, 0, 0);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.6f, backZ);
+
+    // Top face
+    glNormal3f(0, 1, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
+
+    // Top left corner vertical
+    glNormal3f(-1, 0, 0);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.78f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, backZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.78f, backZ);
+
+    // Top left corner horizontal
+    glNormal3f(0, 1, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.78f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.78f, frontZ);
+    glVertex3f(xAtas + 0.75f, yBawah + 0.78f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.78f, backZ);
+
+    // Middle bar bottom edge
+    glNormal3f(0, -1, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.72f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.72f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.72f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.72f, backZ);
+
+    // Middle bar top edge
+    glNormal3f(0, 1, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.78f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.78f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.78f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.78f, backZ);
+
+    // Bottom bar top edge
+    glNormal3f(0, 1, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
+    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
+
+    // Left edge of top bar
+    glNormal3f(-1, 0, 0);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
+    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
 
     glEnd();
 }
