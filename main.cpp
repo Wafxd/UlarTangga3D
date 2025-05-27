@@ -65,65 +65,18 @@ bool rotasi_awal_dilakukan = false;
 // Variabel global untuk mode warna
 bool warna_transparan = false;
 
-// variabel untuk first view person
-int viewMode = 0; // 0: default, 1: rotasi, 2: fps
+int viewMode = 0;
 
 float pos[3];
 GLdouble viewdir[] = {-1.0, 0.0, 0.0};
 
-float theta = 0.0;
-boolean diff = true, spec = true, amb = true;
-int mouseButton = GLUT_LEFT_BUTTON;
-float rotationX = 0.0;
-float rotationY = 0.0;
-float rotationZ = 0.0;
 
 void drawZero(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
 
-    // Set color (orange)
     glColor3f(1.0f, 0.5f, 0.0f);
 
-    // Front faces
-    // Top horizontal bar
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
-    glEnd();
-
-    // Bottom horizontal bar
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-    glEnd();
-
-    // Left vertical bar
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.75f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
-    glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
-    glEnd();
-
-    // Right vertical bar
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
-    glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
-    glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
-    glEnd();
-
-    // Back faces
-    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
@@ -132,7 +85,6 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
     glEnd();
 
-    // Bottom horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
@@ -141,7 +93,6 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
     glEnd();
 
-    // Left vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
@@ -150,7 +101,6 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
     glEnd();
 
-    // Right vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
@@ -159,86 +109,73 @@ void drawZero(float xAtas, float yBawah, float z, float depth) {
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
     glEnd();
 
-    // Connecting sides (3D edges)
     glBegin(GL_QUADS);
-    // Top face
     glNormal3f(0.0, 1.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.9f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
 
-    // Right top edge
     glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.9f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.9f, backZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, backZ);
 
-    // Right main vertical
     glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.85f, backZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
 
-    // Right bottom edge
     glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.65f, backZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
 
-    // Bottom face
     glNormal3f(0.0, -1.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.9f, yBawah + 0.6f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
 
-    // Left bottom edge
     glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.6f, backZ);
 
-    // Left main vertical
     glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.65f, backZ);
 
-    // Left top edge
     glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, frontZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.9f, backZ);
     glVertex3f(xAtas + 0.7f, yBawah + 0.85f, backZ);
 
-    // Inner right vertical
     glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, backZ);
 
-    // Inner left vertical
     glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(xAtas + 0.75f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.75f, yBawah + 0.85f, backZ);
     glVertex3f(xAtas + 0.75f, yBawah + 0.65f, backZ);
 
-    // Inner top horizontal
     glNormal3f(0.0, 1.0, 0.0);
     glVertex3f(xAtas + 0.75f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.85f, backZ);
     glVertex3f(xAtas + 0.75f, yBawah + 0.85f, backZ);
 
-    // Inner bottom horizontal
     glNormal3f(0.0, -1.0, 0.0);
     glVertex3f(xAtas + 0.75f, yBawah + 0.65f, frontZ);
     glVertex3f(xAtas + 0.85f, yBawah + 0.65f, frontZ);
@@ -307,116 +244,74 @@ void drawFour(float xAtas, float yBawah, float z, float depth) {
     // Menghubungkan depan dan belakang untuk membuat sisi 3D
     glBegin(GL_QUADS);
     // Sisi 1
-    glNormal3f(1.0, 0.0, 0.0); // Normal untuk sisi 1
+    glNormal3f(1.0, 0.0, 0.0);
     glVertex3f(0.9 + xAtas, 0.6 + yBawah, frontZ);
     glVertex3f(0.85 + xAtas, 0.6 + yBawah, frontZ);
     glVertex3f(0.85 + xAtas, 0.6 + yBawah, backZ);
     glVertex3f(0.9 + xAtas, 0.6 + yBawah, backZ);
 
     // Sisi 2
-    glNormal3f(0.0, 1.0, 0.0); // Normal untuk sisi 2
+    glNormal3f(0.0, 1.0, 0.0);
     glVertex3f(0.85 + xAtas, 0.6 + yBawah, frontZ);
     glVertex3f(0.85 + xAtas, 0.90 + yBawah, frontZ);
     glVertex3f(0.85 + xAtas, 0.90 + yBawah, backZ);
     glVertex3f(0.85 + xAtas, 0.6 + yBawah, backZ);
 
     // Sisi 3
-    glNormal3f(-1.0, 0.0, 0.0); // Normal untuk sisi 3
+    glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(0.85 + xAtas, 0.90 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, backZ);
     glVertex3f(0.85 + xAtas, 0.90 + yBawah, backZ);
 
     // Sisi 4
-    glNormal3f(0.0, -1.0, 0.0); // Normal untuk sisi 4
+    glNormal3f(0.0, -1.0, 0.0);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.6 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.6 + yBawah, backZ);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, backZ);
 
     // Sisi 5
-    glNormal3f(0.0, 0.0, -1.0); // Normal untuk sisi 5
+    glNormal3f(0.0, 0.0, -1.0);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, frontZ);
     glVertex3f(0.75 + xAtas, 0.72 + yBawah, frontZ);
     glVertex3f(0.75 + xAtas, 0.72 + yBawah, backZ);
     glVertex3f(0.9 + xAtas, 0.90 + yBawah, backZ);
 
     // Sisi 6
-    glNormal3f(0.0, 0.0, 1.0); // Normal untuk sisi 6
+    glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(0.75 + xAtas, 0.72 + yBawah, frontZ);
     glVertex3f(0.78 + xAtas, 0.72 + yBawah, frontZ);
     glVertex3f(0.78 + xAtas, 0.72 + yBawah, backZ);
     glVertex3f(0.75 + xAtas, 0.72 + yBawah, backZ);
 
     // Sisi 7
-    glNormal3f(0.0, 0.0, 1.0); // Normal untuk sisi 7
+    glNormal3f(0.0, 0.0, 1.0);
     glVertex3f(0.78 + xAtas, 0.72 + yBawah, frontZ);
     glVertex3f(0.78 + xAtas, 0.76 + yBawah, frontZ);
     glVertex3f(0.78 + xAtas, 0.76 + yBawah, backZ);
     glVertex3f(0.78 + xAtas, 0.72 + yBawah, backZ);
 
     // Sisi 8
-    glNormal3f(-1.0, 0.0, 0.0); // Normal untuk sisi 8
+    glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(0.78 + xAtas, 0.76 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.76 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.76 + yBawah, backZ);
     glVertex3f(0.78 + xAtas, 0.76 + yBawah, backZ);
 
     // Sisi 9
-    glNormal3f(0.0, -1.0, 0.0); // Normal untuk sisi 9
+    glNormal3f(0.0, -1.0, 0.0);
     glVertex3f(0.9 + xAtas, 0.76 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.71 + yBawah, frontZ);
     glVertex3f(0.9 + xAtas, 0.71 + yBawah, backZ);
     glVertex3f(0.9 + xAtas, 0.76 + yBawah, backZ);
 
     // Sisi 10
-    glNormal3f(-1.0, 0.0, 0.0); // Normal untuk sisi 10
+    glNormal3f(-1.0, 0.0, 0.0);
     glVertex3f(0.9 + xAtas, 0.71 + yBawah, frontZ);
     glVertex3f(0.75 + xAtas, 0.71 + yBawah, frontZ);
     glVertex3f(0.75 + xAtas, 0.71 + yBawah, backZ);
     glVertex3f(0.9 + xAtas, 0.71 + yBawah, backZ);
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, -1.0); // Normal untuk permukaan depan
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, frontZ); // Titik kiri bawah
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, frontZ); // Titik kiri atas (sudut tajam)
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, frontZ); // Titik kanan atas
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, frontZ);  // Titik kanan bawah
-    glEnd();
-
-    // Bagian belakang pengisi
-    glBegin(GL_POLYGON);
-    glNormal3f(0.0, 0.0, 1.0); // Normal untuk permukaan belakang
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, backZ);
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, backZ);
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, backZ);
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, backZ);
-    glEnd();
-
-    // Sisi penghubung depan-belakang untuk pengisi
-    glBegin(GL_QUADS);
-    glNormal3f(0.0, -1.0, 0.0);
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, frontZ);
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, frontZ);
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, backZ);
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, backZ);
-
-    glNormal3f(-1.0, 0.0, 0.0);
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, frontZ);
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, frontZ);
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, backZ);
-    glVertex3f(0.78 + xAtas, 0.71 + yBawah, backZ);
-
-    glNormal3f(0.0, 1.0, 0.0);
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, frontZ);
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, frontZ);
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, backZ);
-    glVertex3f(0.78 + xAtas, 0.76 + yBawah, backZ);
-
-    glNormal3f(1.0, 0.0, 0.0);
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, frontZ);
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, frontZ);
-    glVertex3f(0.85 + xAtas, 0.71 + yBawah, backZ);
-    glVertex3f(0.9 + xAtas, 0.76 + yBawah, backZ);
 
     glEnd();
 }
@@ -427,11 +322,9 @@ void drawSix(float x, float y, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
 
-    // Warna hitam untuk angka
     glColor3f(1.0f, 0.5f, 0.0f);
 
     // Bagian depan
-    // Top horizontal bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.9f, frontZ);
@@ -440,7 +333,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.75f, y + 0.9f, frontZ);
     glEnd();
 
-    // Left vertical bar
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.75f, y + 0.9f, frontZ);
@@ -449,7 +341,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.9f, frontZ);
     glEnd();
 
-    // Bottom right corner
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.8f, y + 0.6f, frontZ);
@@ -458,7 +349,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.65f, frontZ);
     glEnd();
 
-    // Middle vertical right
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.75f, frontZ);
@@ -467,7 +357,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.85f, y + 0.75f, frontZ);
     glEnd();
 
-    // Middle horizontal
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, -1);
     glVertex3f(x + 0.9f, y + 0.75f, frontZ);
@@ -477,7 +366,6 @@ void drawSix(float x, float y, float z, float depth) {
     glEnd();
 
     // Bagian belakang
-    // Top horizontal bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.9f, backZ);
@@ -486,7 +374,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.75f, y + 0.9f, backZ);
     glEnd();
 
-    // Left vertical bar (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.75f, y + 0.9f, backZ);
@@ -495,7 +382,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.9f, backZ);
     glEnd();
 
-    // Bottom right corner (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.8f, y + 0.6f, backZ);
@@ -504,7 +390,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.8f, y + 0.65f, backZ);
     glEnd();
 
-    // Middle vertical right (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.75f, backZ);
@@ -513,7 +398,6 @@ void drawSix(float x, float y, float z, float depth) {
     glVertex3f(x + 0.85f, y + 0.75f, backZ);
     glEnd();
 
-    // Middle horizontal (back)
     glBegin(GL_POLYGON);
     glNormal3f(0, 0, 1);
     glVertex3f(x + 0.9f, y + 0.75f, backZ);
@@ -630,7 +514,6 @@ void drawNine(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
     float backZ = z + depth;
 
-    // Set color (orange)
     glColor3f(1.0f, 0.5f, 0.0f);
 
     // Front faces
@@ -811,7 +694,6 @@ void drawObserver(float x, float y) {
     glPushMatrix();
     glColor3f(0, 1, 0);
     glTranslatef(x, y, 0.6f);
-
     glutSolidCone(0.1, 0.2, 50, 50);
     glPopMatrix();
 }
@@ -822,7 +704,7 @@ void drawPlayer1 (float x , float y){
     glTranslatef(x,y,0.6f);
     glutSolidSphere(0.1,50,50);
     glTranslatef(-x,-y,-0.6f);
-    glPopMatrix();   // Kembalikan ke matriks sebelumnya
+    glPopMatrix();
 }
 
 void drawPlayer2(float x, float y){
@@ -830,25 +712,24 @@ void drawPlayer2(float x, float y){
     glTranslatef(x,y,0.6f);
     glutSolidCube(0.2);
     glTranslatef(-x,-y,-0.6f);
+    glPopMatrix();
 }
 
 void drawSquare3D(float x, float y, float z, bool isDark) {
     float depth = 0.02f;
 
-
-
     if (warna_transparan) {
-        // Transparansi 0.5 untuk semua warna, meskipun mode gelap atau terang
+
         if (isDark) {
-            glColor4f(0.0, 0.0, 1.0, 0.4);  // Warna biru dengan transparansi 0.5
+            glColor4f(0.0, 0.0, 1.0, 0.4);
         } else {
-            glColor4f(1.0, 1.0, 1.0, 0.4);  // Warna putih dengan transparansi 0.5
+            glColor4f(1.0, 1.0, 1.0, 0.4);
         }
     } else {
         if (isDark) {
-            glColor4f(0.0, 0.0, 1.0, 1.0);  // Warna solid biru untuk kondisi gelap
+            glColor4f(0.0, 0.0, 1.0, 1.0);
         } else {
-            glColor4f(1.0, 1.0, 1.0, 1.0);  // Warna solid putih untuk kondisi terang
+            glColor4f(1.0, 1.0, 1.0, 1.0);
         }
     }
 
@@ -894,15 +775,7 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     glVertex3f(x, y + 1, z);
     glVertex3f(x, y + 1, z - depth);
     glVertex3f(x + 1, y + 1, z - depth);
-    glVertex3f(x + 1, y + 1, z);if (warna_transparan) {
-        glColor4f(1.0, 1.0, 1.0, 0.5);  // Transparansi 0.5
-    } else {
-        if (isDark) {
-            glColor4f(0.0, 0.0, 1.0, 1.0);  // Warna solid untuk kondisi gelap
-        } else {
-            glColor4f(1.0, 1.0, 1.0, 1.0);  // Warna solid untuk kondisi terang
-        }
-    }
+    glVertex3f(x + 1, y + 1, z);
     glEnd();
 
     // Sisi bawah
@@ -1740,9 +1613,6 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
 
     glPopMatrix();
 
-    // MENGGAMBAR ULAR 3D
-    glPushMatrix();
-    glColor3f(1.0, 0.0, 0.0); // Warna merah
 
     // MENGGAMBAR ULAR 3D
     glPushMatrix();
@@ -1860,6 +1730,8 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
 
     glPopMatrix();
 
+
+    //PAGAR
 
     // ATAS (Top fence)
     glColor3f(0.52, 0.7, 0);
@@ -2083,7 +1955,6 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     glEnd();
 
 
-
     glColor3f(0.52, 0.7, 0);
 
     // Parameter dasar
@@ -2161,30 +2032,28 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     }
 
 
-
-
     // 1-10
     drawFour(3, 0, 0.01, 0.2);
     drawSix(5 - 0.05, 0, 0.01, 0.2);
-    drawNine(3, 1, 0.01, 0.2);
+    drawNine(3, 0.99, 0.01, 0.2);
     drawZero(2, 1, 0.01, 0.2);
 
     // 11-20
     drawFour(1, 2, 0.01, 0.2);
-    drawSix(3, 2, 0.01, 0.2);
-    drawNine(5 - 0.05, 3, 0.01, 0.2);
+    drawSix(3, 1.99, 0.01, 0.2);
+    drawNine(5 - 0.05, 2.99, 0.01, 0.2);
     drawZero(4, 3, 0.01, 0.2);
 
     // 21-30
     drawFour(0, 3, 0.01, 0.2);
-    drawSix(1, 4, 0.01, 0.2);
-    drawNine(4, 4, 0.01, 0.2);
+    drawSix(1, 3.99, 0.01, 0.2);
+    drawNine(4, 3.99, 0.01, 0.2);
     drawZero(5 - 0.05, 4, 0.01, 0.2);
 
     // 31-40
     drawFour(2, 5, 0.01, 0.2);
-    drawSix(0, 5, 0.01, 0.2);
-    drawNine(2, 6, 0.01, 0.2);
+    drawSix(0, 4.99, 0.01, 0.2);
+    drawNine(2, 5.99, 0.01, 0.2);
     drawZero(3, 6, 0.01, 0.2);
     drawFour(2.75, 6, 0.01, 0.2);
 
@@ -2195,68 +2064,60 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
     drawFour(4, 7, 0.01, 0.2);
     drawFour(3.8, 7, 0.01, 0.2);
     drawFour(3, 7, 0.01, 0.2);
-    drawSix(2, 7, 0.01, 0.2);
+    drawSix(2, 6.99, 0.01, 0.2);
     drawFour(1.8, 7, 0.01, 0.2);
     drawFour(1, 7, 0.01, 0.2);
     drawFour(0, 7, 0.01, 0.2);
-    drawNine(0, 8, 0.01, 0.2);
+    drawNine(0, 7.99, 0.01, 0.2);
     drawFour(-0.25, 8, 0.01, 0.2);
     drawZero(1, 8, 0.01, 0.2);
 
     // 51-60
     drawFour(5 - 0.05, 8, 0.01, 0.2);
-    drawSix(4, 9, 0.01, 0.2);
-    drawNine(1, 9, 0.01, 0.2);
+    drawSix(4, 8.99, 0.01, 0.2);
+    drawNine(1, 8.99, 0.01, 0.2);
     drawZero(0, 9, 0.01, 0.2);
-    drawSix(-0.25, 9, 0.01, 0.2);
+    drawSix(-0.25, 8.99, 0.01, 0.2);
 
     // 61-70
-    drawSix(0, 10, 0.01, 0.2);
-    drawSix(1, 10, 0.01, 0.2);
-    drawSix(2, 10, 0.01, 0.2);
+    drawSix(0, 9.99, 0.01, 0.2);
+    drawSix(1, 9.99, 0.01, 0.2);
+    drawSix(2, 9.99, 0.01, 0.2);
 
 
     drawFour(3, 10, 0.01, 0.2);
 
-    drawSix(2.8, 10, 0.01, 0.2);
+    drawSix(2.8, 9.99, 0.01, 0.2);
 
 
-    drawSix(4, 10, 0.01, 0.2);
-    drawSix(5 - 0.05, 10, 0.01, 0.2);
-    drawSix(4.8 - 0.05, 10, 0.01, 0.2);
-    drawSix(5 - 0.05, 11, 0.01, 0.2);
-    drawSix(4, 11, 0.01, 0.2);
-    drawNine(3, 11, 0.01, 0.2);
-    drawSix(2.75, 11, 0.01, 0.2);
+    drawSix(4, 9.99, 0.01, 0.2);
+    drawSix(5 - 0.05, 9.99, 0.01, 0.2);
+    drawSix(4.8 - 0.05, 9.99, 0.01, 0.2);
+    drawSix(5 - 0.05, 10.99, 0.01, 0.2);
+    drawSix(4, 10.99, 0.01, 0.2);
+    drawNine(3, 10.99, 0.01, 0.2);
+    drawSix(2.75, 10.99, 0.01, 0.2);
     drawZero(2, 11, 0.01, 0.2);
 
     // 71-84
     drawFour(1, 12, 0.01, 0.2);
-    drawSix(3, 12, 0.01, 0.2);
-    drawNine(5 - 0.05, 13, 0.01, 0.2);
+    drawSix(3, 11.99, 0.01, 0.2);
+    drawNine(5 - 0.05, 12.99, 0.01, 0.2);
     drawZero(4, 13, 0.01, 0.2);
     drawFour(0, 13, 0.01, 0.2);
 
 
     drawObserver(geser_oberver_X, geser_oberver_Y);
 
-
     drawPlayer1(bidak_player1_X, bidak_player1_Y);
     drawPlayer2(bidak_player2_X, bidak_player2_Y);
 }
 
 
-
-
-
-
 void drawBoard() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    if (viewMode == 2) {
-        // Set up gluLookAt
-        gluLookAt(pos[0], pos[1], pos[2], pos[0]+viewdir[0], pos[1]+viewdir[1], pos[2]+viewdir[2], 0,1,0);
-    } else {
+    if (viewMode == 1) {
         // Default atau rotasi tampilan
         glTranslatef(pusat_rotasi_X, pusat_rotasi_Y, pusat_rotasi_Z);
         glRotatef(sudut_rotasi_X, 1.0f, 0.0f, 0.0f);
@@ -2275,27 +2136,18 @@ void drawBoard() {
         isblue = !isblue;
     }
 
-
-
-
-
-
-
-
-
-
-    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
-    GLfloat mat_shininess[] = { 10.0 };
-    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
-    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-    GLfloat mat_specular_1[] = { 0.7, 0.1, 0.1, 1.0 };
-    GLfloat mat_shininess_1[] = { 10.0 };
-    GLfloat mat_diffuse_1[] = { 0.7, 0.1, 0.1, 1.0 };
-    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular_1);
-    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess_1);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_1);
+//    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+//    GLfloat mat_shininess[] = { 10.0 };
+//    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+//    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+//    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+//    GLfloat mat_specular_1[] = { 0.7, 0.1, 0.1, 1.0 };
+//    GLfloat mat_shininess_1[] = { 10.0 };
+//    GLfloat mat_diffuse_1[] = { 0.7, 0.1, 0.1, 1.0 };
+//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular_1);
+//    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess_1);
+//    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_1);
 
     glutSwapBuffers();
     glFlush();
@@ -2337,63 +2189,23 @@ void myinit() {
 }
 
 
-
-
-void mouse(int button, int state, int x, int y) {
-    if (state == GLUT_DOWN) {
-        mouseButton = button;
-    }
-}
-
-void arrowKey(int key, int x, int y){
-    if (viewMode == 2) {
-        switch (key) {
-            case GLUT_KEY_UP:
-                pos[0] += 0.2 * viewdir[0];
-                pos[1] += 0.2 * viewdir[1];
-                pos[2] += 0.2 * viewdir[2];
-                break;
-            case GLUT_KEY_DOWN:
-                pos[0] -= 0.2 * viewdir[0];
-                pos[1] -= 0.2 * viewdir[1];
-                pos[2] -= 0.2 * viewdir[2];
-                break;
-            case GLUT_KEY_LEFT:
-                viewdir[0] = viewdir[0] * cos(-0.03) + viewdir[2] * sin(-0.03);
-                viewdir[2] = -viewdir[0] * sin(-0.03) + viewdir[2] * cos(-0.03);
-                break;
-            case GLUT_KEY_RIGHT:
-                viewdir[0] = viewdir[0] * cos(0.03) + viewdir[2] * sin(0.03);
-                viewdir[2] = -viewdir[0] * sin(0.03) + viewdir[2] * cos(0.03);
-                break;
-        }
-        glutPostRedisplay();
-    }
-}
-
 void reshape(int w, int h) {
     glViewport(0, 0, w, h);
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // Ukuran papan 6 kolom x 14 baris
-    // Kita ingin papan terlihat penuh dengan margin yang cukup
     float boardWidth = 6.0f;
     float boardHeight = 14.0f;
 
-    // Hitung aspect ratio
     float aspect = (float)w / (float)h;
 
-    // Jika window lebih lebar dari tinggi
     if (aspect > (boardWidth / boardHeight)) {
-        // Sesuaikan berdasarkan height
         float newWidth = boardHeight * aspect;
         glOrtho(-(newWidth - boardWidth)/2, newWidth - (newWidth - boardWidth)/2,
                 -1.0f, boardHeight + 1.0f,
                 -15.0f, 30.0f);
     } else {
-        // Sesuaikan berdasarkan width
         float newHeight = boardWidth / aspect;
         glOrtho(-1.0f, boardWidth + 1.0f,
                 -(newHeight - boardHeight)/2, newHeight - (newHeight - boardHeight)/2,
@@ -2403,9 +2215,6 @@ void reshape(int w, int h) {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // Translasi untuk memusatkan papan
-    // Karena kita sudah mengatur proyeksi dengan benar, translasi bisa di 0
-    // Tapi jika masih perlu penyesuaian, bisa ditambahkan:
     glTranslatef(-boardWidth/2, -boardHeight/2, 0.0f);
 }
 
@@ -2414,7 +2223,6 @@ void reshape(int w, int h) {
 
 void input(unsigned char key, int x, int y) {
     key = tolower(key); //Agar bisa menginput keyboard huruf besar dan kecil
-
 
 
     if (viewMode == 1) { // Percabangan untuk rotasi papan permainan
@@ -2431,12 +2239,7 @@ void input(unsigned char key, int x, int y) {
             case 'l': // Putar Kanan
                 sudut_rotasi_Y += 2.0f;
                 break;
-            case 'u': // Putar Z Berlawanan Arah jarum Jam
-                sudut_rotasi_Z -= 2.0f;
-                break;
-            case 'o': // Putar Z Berlawanan Arah jarum Jam
-                sudut_rotasi_Z += 2.0f;
-                break;
+
         }
     }
 
@@ -2444,7 +2247,7 @@ void input(unsigned char key, int x, int y) {
     switch (key) {
         case 'v':
         // Mengatur mode tampilan
-        viewMode = (viewMode + 1) % 2;  // Mengurangi jumlah mode tampilan menjadi 2
+        viewMode = (viewMode + 1) % 2;
 
         if (viewMode == 1) {
             // Mengubah mode ke rotasi papan tanpa mereset rotasi
@@ -2460,8 +2263,6 @@ void input(unsigned char key, int x, int y) {
             warna_transparan = true; // Mengaktifkan transparansi 0.5
 
         } else {
-            // Mengubah mode ke tampilan default (viewMode == 0)
-            // Simpan sudut rotasi terakhir jika dalam mode rotasi
             if (isRotated) {
                 sudut_rotasi_terakhir_x = sudut_rotasi_X;
                 sudut_rotasi_terakhir_Y = sudut_rotasi_Y;
@@ -2510,9 +2311,9 @@ void input(unsigned char key, int x, int y) {
         } else {
             if (giliran_player1) {
                 int rand_player1 = rollDice();
-                cout << "Player1 Main : " << rand_player1 << " Nilai Dadu" << endl;
+                cout << "Player1 Mendapatkan : " << rand_player1 << " Nilai Dadu" << endl;
                 jumlahlemparan += rand_player1;
-                cout << "Kotak Player 1 : " << jumlahlemparan << endl;
+                cout << "Letak Player 1 : " << jumlahlemparan << endl;
                 cout << "===========================================================" << endl;
 
 
@@ -2520,7 +2321,7 @@ void input(unsigned char key, int x, int y) {
                     // Cek apakah akan mendarat di kotak 3
                     if (jumlahlemparan == 3) {  // Jika posisi di kotak 3
                         jumlahlemparan = 22;  // Langsung pindah ke kotak 22
-                        cout << "Player 1 naik ke kotak 22!" << endl;
+                        cout << "Player 1 melompat ke kotak 22!" << endl;
                         // Posisikan Player 1 pada koordinat kotak 22
                         bidak_player1_X = 6.5 - (jumlahlemparan - 18);  // Kolom 22, tengah kotak
                         bidak_player1_Y = 3.5 + 0.2;  // Baris yang sesuai untuk kotak 22
@@ -2588,7 +2389,7 @@ void input(unsigned char key, int x, int y) {
                     // Cek jika mendarat di kotak 58
                     if (jumlahlemparan == 58) {
                         jumlahlemparan = 80;  // Langsung pindah ke kotak 80
-                        cout << "Player 1 naik cepat ke kotak 80!" << endl;
+                        cout << "Player 1 melompat ke kotak 80!" << endl;
                         // Posisikan di kotak 80 (perlu menyesuaikan rumus koordinat untuk kotak 80)
                         bidak_player1_X = 6.5 - (jumlahlemparan - 78);  // Geser ke kiri
                         bidak_player1_Y = 13.5 + 0.2;  // Menambahkan offset ke atas
@@ -2650,7 +2451,6 @@ void input(unsigned char key, int x, int y) {
                 giliran_player1 = false;  // Mengubah giliran ke Player 2
             }
             else {
-                cout << "Letak Awal Player 2 : " << jumlahlemparan2 << endl;
                 int rand_player2 = rollDice();
                 cout << "Player 2 mendapatkan : " << rand_player2 << " Nilai Dadu" << endl;
                 jumlahlemparan2 += rand_player2;
@@ -2788,8 +2588,7 @@ void input(unsigned char key, int x, int y) {
                     cout << "Player 2 Menang!" << endl;  // Menyatakan kemenangan
                 }
 
-                // Setelah update posisi, giliran berakhir
-                giliran_player1 = true;  // Mengubah giliran kembali ke player 1 setelah player 2 selesai
+                giliran_player1 = true;
             }
         }
     }
@@ -2797,28 +2596,6 @@ void input(unsigned char key, int x, int y) {
 
 }
 
-void myIdle() {
-    theta += 0.1; // Tambah nilai theta untuk rotasi
-    if (theta >= 360.0) {
-        theta -= 360.0;
-    }
-
-    // Perbarui sudut rotasi yang sesuai
-    if (viewMode == 1){
-        if (mouseButton == GLUT_LEFT_BUTTON) {
-            rotationX += 0.1;
-            if (rotationX >= 360.0) rotationX -= 360.0;
-        } else if (mouseButton == GLUT_RIGHT_BUTTON) {
-            rotationZ += 0.1;
-            if (rotationZ >= 360.0) rotationZ -= 360.0;
-        } else if (mouseButton == GLUT_MIDDLE_BUTTON) {
-            rotationY += 0.1;
-            if (rotationY >= 360.0) rotationY -= 360.0;
-        }
-    }
-
-    glutPostRedisplay();
-}
 
 
 int main(int argc, char** argv) {
@@ -2826,13 +2603,10 @@ int main(int argc, char** argv) {
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(700, 700);
     glutInitWindowPosition(100, 100);
-    glutCreateWindow("Ular Tangga");
+    glutCreateWindow("Ular Tangga 3D");
     glutDisplayFunc(drawBoard);
     glutKeyboardFunc(input);
     glutReshapeFunc(reshape);
-    glutIdleFunc(myIdle);
-    glutMouseFunc(mouse);
-    glutSpecialFunc(arrowKey);
     myinit();
 
 
