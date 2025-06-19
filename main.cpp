@@ -70,6 +70,16 @@ int viewMode = 0;
 float pos[3];
 GLdouble viewdir[] = {-1.0, 0.0, 0.0};
 
+float theta = 0.0;
+boolean diff = true, spec = true, amb = true;
+int mouseButton = GLUT_LEFT_BUTTON;
+float rotationX = 0.0;
+float rotationY = 0.0;
+float rotationZ = 0.0;
+
+
+
+
 
 void drawZero(float xAtas, float yBawah, float z, float depth) {
     float frontZ = z;
@@ -2136,18 +2146,18 @@ void drawBoard() {
         isblue = !isblue;
     }
 
-//    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
-//    GLfloat mat_shininess[] = { 10.0 };
-//    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
-//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
-//    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-//    GLfloat mat_specular_1[] = { 0.7, 0.1, 0.1, 1.0 };
-//    GLfloat mat_shininess_1[] = { 10.0 };
-//    GLfloat mat_diffuse_1[] = { 0.7, 0.1, 0.1, 1.0 };
-//    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular_1);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess_1);
-//    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_1);
+    GLfloat mat_specular[] = { 0.7, 0.7, 0.7, 1.0 };
+    GLfloat mat_shininess[] = { 10.0 };
+    GLfloat mat_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+    GLfloat mat_specular_1[] = { 0.7, 0.1, 0.1, 1.0 };
+    GLfloat mat_shininess_1[] = { 10.0 };
+    GLfloat mat_diffuse_1[] = { 0.7, 0.1, 0.1, 1.0 };
+    glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular_1);
+    glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess_1);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_1);
 
     glutSwapBuffers();
     glFlush();
@@ -2223,6 +2233,39 @@ void reshape(int w, int h) {
 
 void input(unsigned char key, int x, int y) {
     key = tolower(key); //Agar bisa menginput keyboard huruf besar dan kecil
+
+    if (key=='1'){
+        if (amb == true){
+            GLfloat ambient_light[] = { 0.3, 0.3, 0.3, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = false;
+        }
+        else{
+            GLfloat ambient_light[] = { 0.9, 0.9, 0.9, 1.0 };
+            glLightModelfv(GL_LIGHT_MODEL_AMBIENT,ambient_light);
+            amb = true;
+        }
+    }
+    if (key=='2'){
+        if (diff == true){
+            glDisable(GL_LIGHT0);
+            diff = false;
+        }
+        else{
+            glEnable(GL_LIGHT0);
+            diff = true;
+        }
+    }
+    if (key=='3'){
+        if (spec == true){
+            glDisable(GL_LIGHT1);
+            spec = false;
+        }
+        else{
+            glEnable(GL_LIGHT1);
+            spec = true;
+        }
+    }
 
 
     if (viewMode == 1) { // Percabangan untuk rotasi papan permainan
