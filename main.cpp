@@ -76,9 +76,7 @@ int mouseButton = GLUT_LEFT_BUTTON;
 float rotationX = 0.0;
 float rotationY = 0.0;
 float rotationZ = 0.0;
-
-
-
+float rotationSpeed = 2.0;
 
 
 void drawZero(float xAtas, float yBawah, float z, float depth) {
@@ -704,6 +702,12 @@ void drawObserver(float x, float y) {
     glPushMatrix();
     glColor3f(0, 1, 0);
     glTranslatef(x, y, 0.6f);
+    if (viewMode == 1) {
+        glRotatef(rotationX, 1, 0, 0);
+        glRotatef(rotationY, 0, 1, 0);
+        glRotatef(rotationZ, 0, 0, 1);
+    }
+//    glutSolidTeapot(0.1);
     glutSolidCone(0.1, 0.2, 50, 50);
     glPopMatrix();
 }
@@ -2198,6 +2202,12 @@ void myinit() {
     pos[2] = 0.0;
 }
 
+void mouse(int button, int state, int x, int y) {
+    if (state == GLUT_DOWN) {
+        mouseButton = button;
+    }
+}
+
 
 void reshape(int w, int h) {
     glViewport(0, 0, w, h);
@@ -2639,6 +2649,27 @@ void input(unsigned char key, int x, int y) {
 
 }
 
+void myIdle() {
+    theta += 0.1;
+    if (theta >= 360.0) {
+        theta -= 360.0;
+    }
+
+    if (viewMode == 1) {
+        if (mouseButton == GLUT_LEFT_BUTTON) {
+            rotationX += rotationSpeed; // Rotasi lebih cepat
+            if (rotationX >= 360.0) rotationX -= 360.0;
+        } else if (mouseButton == GLUT_RIGHT_BUTTON) {
+            rotationZ += rotationSpeed; // Rotasi lebih cepat
+            if (rotationZ >= 360.0) rotationZ -= 360.0;
+        } else if (mouseButton == GLUT_MIDDLE_BUTTON) {
+            rotationY += rotationSpeed; // Rotasi lebih cepat
+            if (rotationY >= 360.0) rotationY -= 360.0;
+        }
+    }
+
+    glutPostRedisplay();
+}
 
 
 int main(int argc, char** argv) {
@@ -2650,6 +2681,8 @@ int main(int argc, char** argv) {
     glutDisplayFunc(drawBoard);
     glutKeyboardFunc(input);
     glutReshapeFunc(reshape);
+    glutIdleFunc(myIdle);
+    glutMouseFunc(mouse);
     myinit();
 
 
