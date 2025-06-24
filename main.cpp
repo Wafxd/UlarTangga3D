@@ -11,6 +11,12 @@ using namespace std;
 #include <cstdio>
 #include <cmath>
 
+
+
+int windowWidth = 800;
+int windowHeight = 600;
+
+
 int rollDice() {
     return (rand() % 6) + 1;
 }
@@ -31,6 +37,20 @@ bool giliran_player1 = true;
 // Variabel untuk menggeser observer
 float geser_oberver_X = 0.2;
 float geser_oberver_Y = 0.5;
+
+// Variabel untuk first-person view
+float fp_posX = 0.0f;
+float fp_posY = 0.0f;
+float fp_posZ = 0.5f; // Sedikit di atas papan
+float fp_lookX = 1.0f; // Awalnya menghadap ke kanan
+float fp_lookY = 0.0f;
+float fp_lookZ = 0.0f;
+float fp_upX = 0.0f;
+float fp_upY = 0.0f;
+float fp_upZ = 1.0f; // Vektor up (untuk orientasi kamera)
+float fp_distance = 0.1f;  // Jarak sangat dekat ke papan
+float fp_height = 0.05f;   // Ketinggian sangat rendah (seolah di permukaan papan)
+
 
 //Variabel untuk batas Observer
 const float batas_observer_kiri = 0.1;
@@ -57,6 +77,12 @@ float pusat_rotasi_Z = 0.0f;
 float sudut_rotasi_terakhir_x = 0.0f;
 float sudut_rotasi_terakhir_Y = 0.0f;
 float sudut_rotasi_terakhir_Z = 0.0f;
+
+
+// Variabel tambahan untuk menyimpan rotasi khusus viewMode 1
+float sudut_rotasi_3D_X = -20.0f;  // Nilai default
+float sudut_rotasi_3D_Y = 0.0f;
+float sudut_rotasi_3D_Z = 0.0f;
 
 
 bool isRotated = false;
@@ -2128,16 +2154,41 @@ void drawSquare3D(float x, float y, float z, bool isDark) {
 }
 
 
+void setupFirstPersonView() {
+
+    fp_posX = 0.2;
+    fp_posY = 0.5;
+    fp_posZ = fp_height;
+
+    fp_lookX = fp_posX + 1.0f;
+    fp_lookY = fp_posY;
+    fp_lookZ = fp_posZ;
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60.0, (GLfloat)windowWidth/(GLfloat)windowHeight, 0.01f, 100.0f);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+
 void drawBoard() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
     if (viewMode == 1) {
-        // Default atau rotasi tampilan
         glTranslatef(pusat_rotasi_X, pusat_rotasi_Y, pusat_rotasi_Z);
         glRotatef(sudut_rotasi_X, 1.0f, 0.0f, 0.0f);
         glRotatef(sudut_rotasi_Y, 0.0f, 1.0f, 0.0f);
         glRotatef(sudut_rotasi_Z, 0.0f, 0.0f, 1.0f);
         glTranslatef(-pusat_rotasi_X, -pusat_rotasi_Y, -pusat_rotasi_Z);
+    }
+    else if (viewMode == 2) {
+        gluLookAt(
+            fp_posX, fp_posY, fp_posZ,
+            fp_lookX, fp_lookY, fp_lookZ,
+            0.0, 0.0, 1.0
+        );
+
+        glScalef(1.5f, 1.5f, 1.5f);
     }
     glPointSize(4);
 
@@ -2210,39 +2261,52 @@ void mouse(int button, int state, int x, int y) {
 
 
 void reshape(int w, int h) {
-    glViewport(0, 0, w, h);
+    windowWidth = w;
+    windowHeight = h;
 
+    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     float boardWidth = 6.0f;
     float boardHeight = 14.0f;
 
-    float aspect = (float)w / (float)h;
-
-    if (aspect > (boardWidth / boardHeight)) {
-        float newWidth = boardHeight * aspect;
-        glOrtho(-(newWidth - boardWidth)/2, newWidth - (newWidth - boardWidth)/2,
-                -1.0f, boardHeight + 1.0f,
-                -15.0f, 30.0f);
+    if (viewMode == 2) {
+        gluPerspective(60.0, (float)w/(float)h, 0.01f, 100.0f);
     } else {
-        float newHeight = boardWidth / aspect;
-        glOrtho(-1.0f, boardWidth + 1.0f,
-                -(newHeight - boardHeight)/2, newHeight - (newHeight - boardHeight)/2,
-                -15.0f, 30.0f);
+        float aspect = (float)w / (float)h;
+
+        float zoomFactor = 1.0f;
+
+        if (aspect > (boardWidth / boardHeight)) {
+            float newWidth = boardHeight * aspect * zoomFactor;
+            glOrtho(-(newWidth - boardWidth)/2, newWidth - (newWidth - boardWidth)/2,
+                    -1.0f * zoomFactor, (boardHeight + 1.0f) * zoomFactor,
+                    -15.0f, 30.0f);
+        } else {
+            float newHeight = boardWidth / aspect * zoomFactor;
+            glOrtho(-1.0f * zoomFactor, (boardWidth + 1.0f) * zoomFactor,
+                    -(newHeight - boardHeight)/2, newHeight - (newHeight - boardHeight)/2,
+                    -15.0f, 30.0f);
+        }
     }
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glTranslatef(-boardWidth/2, -boardHeight/2, 0.0f);
+    if (viewMode != 2) {
+        glTranslatef(-boardWidth/2, -boardHeight/2, 0.0f);
+    }
+}
+
+void resetProjection() {
+    reshape(windowWidth, windowHeight);
 }
 
 
-
-
 void input(unsigned char key, int x, int y) {
-    key = tolower(key); //Agar bisa menginput keyboard huruf besar dan kecil
+    key = tolower(key);
+
 
     if (key=='1'){
         if (amb == true){
@@ -2278,59 +2342,52 @@ void input(unsigned char key, int x, int y) {
     }
 
 
-    if (viewMode == 1) { // Percabangan untuk rotasi papan permainan
+    if (viewMode == 1) {
         switch (key) {
-            case 'i': // Putar Atas
-                sudut_rotasi_X -= 2.0f;
-                break;
-            case 'k': // Putar Bawah
-                sudut_rotasi_X += 2.0f;
-                break;
-            case 'j': // Putar Kiri
-                sudut_rotasi_Y -= 2.0f;
-                break;
-            case 'l': // Putar Kanan
-                sudut_rotasi_Y += 2.0f;
-                break;
-
+            case 'i': sudut_rotasi_3D_X -= 2.0f; break;
+            case 'k': sudut_rotasi_3D_X += 2.0f; break;
+            case 'j': sudut_rotasi_3D_Y -= 2.0f; break;
+            case 'l': sudut_rotasi_3D_Y += 2.0f; break;
         }
+        sudut_rotasi_X = sudut_rotasi_3D_X;
+        sudut_rotasi_Y = sudut_rotasi_3D_Y;
+        sudut_rotasi_Z = sudut_rotasi_3D_Z;
     }
+    else if (viewMode == 2) {
 
+    }
 
     switch (key) {
         case 'v':
-        // Mengatur mode tampilan
-        viewMode = (viewMode + 1) % 2;
+        viewMode = (viewMode + 1) % 3;
 
         if (viewMode == 1) {
-            // Mengubah mode ke rotasi papan tanpa mereset rotasi
-            if (!rotasi_awal_dilakukan) {
-                sudut_rotasi_X = -20.0f;
-                rotasi_awal_dilakukan = true;
-            } else {
-                sudut_rotasi_X = sudut_rotasi_terakhir_x;
-                sudut_rotasi_Y = sudut_rotasi_terakhir_Y;
-                sudut_rotasi_Z = sudut_rotasi_terakhir_Z;
-            }
-            isRotated = true;
-            warna_transparan = true; // Mengaktifkan transparansi 0.5
+            sudut_rotasi_X = sudut_rotasi_3D_X;
+            sudut_rotasi_Y = sudut_rotasi_3D_Y;
+            sudut_rotasi_Z = sudut_rotasi_3D_Z;
 
-        } else {
-            if (isRotated) {
-                sudut_rotasi_terakhir_x = sudut_rotasi_X;
-                sudut_rotasi_terakhir_Y = sudut_rotasi_Y;
-                sudut_rotasi_terakhir_Z = sudut_rotasi_Z;
-            }
+            isRotated = true;
+            warna_transparan = true;
+        }
+        else if (viewMode == 2) {
+            // Mode first-person
+            setupFirstPersonView();
             isRotated = false;
-            // Reset rotasi
+            warna_transparan = false;
+
             sudut_rotasi_X = 0.0f;
             sudut_rotasi_Y = 0.0f;
             sudut_rotasi_Z = 0.0f;
-            // Nonaktifkan warna transparan jika perlu
+        }
+        else {
+            // Mode 2D default
+            isRotated = false;
+            sudut_rotasi_X = 0.0f;
+            sudut_rotasi_Y = 0.0f;
+            sudut_rotasi_Z = 0.0f;
             warna_transparan = false;
         }
-
-
+        resetProjection();
         break;
 
 
@@ -2657,13 +2714,13 @@ void myIdle() {
 
     if (viewMode == 1) {
         if (mouseButton == GLUT_LEFT_BUTTON) {
-            rotationX += rotationSpeed; // Rotasi lebih cepat
+            rotationX += rotationSpeed;
             if (rotationX >= 360.0) rotationX -= 360.0;
         } else if (mouseButton == GLUT_RIGHT_BUTTON) {
-            rotationZ += rotationSpeed; // Rotasi lebih cepat
+            rotationZ += rotationSpeed;
             if (rotationZ >= 360.0) rotationZ -= 360.0;
         } else if (mouseButton == GLUT_MIDDLE_BUTTON) {
-            rotationY += rotationSpeed; // Rotasi lebih cepat
+            rotationY += rotationSpeed;
             if (rotationY >= 360.0) rotationY -= 360.0;
         }
     }
